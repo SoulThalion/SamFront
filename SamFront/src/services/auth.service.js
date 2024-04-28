@@ -1,8 +1,8 @@
-import { App } from "astro/app"
+import app from './config'
 
 export const login = async (userName, password) => {
     try {
-      const { data } = await App.post('/auth/login', {
+      const { data } = await app.post('/auth/login', {
         userName,
         password
       })
