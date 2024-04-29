@@ -25,7 +25,7 @@ const Navbar = () => {
                 <MenuIcon />
               </button>
 
-              <a href="https://flowbite.com" className="flex ms-2 md:me-24">
+              <a href="/" className="flex ms-2 md:me-24">
                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
                   SAM
                 </span>
@@ -38,7 +38,6 @@ const Navbar = () => {
                     type="button"
                     className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                     aria-expanded="false"
-                    data-dropdown-toggle="dropdown-user"
                   >
                     <span className="sr-only">Open user menu</span>
                     <UserIcon />
@@ -60,7 +59,7 @@ const Navbar = () => {
         id="drawer-navigation"
         style={{ backgroundColor: "#1c1d20" }}
         className="fixed mt-4 top-12 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full border-r border-gray-200"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="drawer-navigation-label"
       >
         <h5

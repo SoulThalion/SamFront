@@ -1,10 +1,15 @@
 import LogOutIcon from "../../icons/LogOutIcon";
 
 const LogOutButton = () => {
+
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+  }
+
   return (
     <li>
-      <a
-        href="#"
+      <a href="#"
+        onClick={handleLogout}
         className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-800 dark:hover:bg-gray-700 group"
       >
         <LogOutIcon />
