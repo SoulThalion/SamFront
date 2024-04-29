@@ -1,7 +1,7 @@
 import app from './config'
 
-export const login = async (userName, password) => {
-    try {
+const login = async (userName, password) => {
+   try {
       const { data } = await app.post('/auth/login', {
         userName,
         password
