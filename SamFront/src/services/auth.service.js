@@ -13,3 +13,5 @@ export const login = async (userName, password) => {
       console.log('Error loging: ', error.message)
     }
   }
+
+  export default login
