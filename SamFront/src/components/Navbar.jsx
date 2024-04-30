@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import ExitIcon from "../icons/ExitIcon";
 import MenuIcon from "../icons/MenuIcon";
 import UserIcon from "../icons/UserIcon";
@@ -5,12 +7,19 @@ import ClientsButton from "./buttons/ClientsButton";
 import LogOutButton from "./buttons/LogOutButton";
 import OrdersButton from "./buttons/OrdersButton";
 import UsersButton from "./buttons/UsersButton";
+
 const Navbar = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsDrawerOpen(false);  // Cerrar el drawer cada vez que cambia la ruta
+  }, [location]);
+
   return (
     <>
       <nav
-        className="fixed top-0 z-50 w-full border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 text-white"
-        style={{ backgroundColor: "#1c1d20" }}
+        className="fixed top-0 z-50 w-full border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 text-white bg-[#1c1d20]"
       >
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
@@ -18,8 +27,7 @@ const Navbar = () => {
               <button
                 className="text-white mt-0 hover:bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 type="button"
-                data-drawer-target="drawer-navigation"
-                data-drawer-show="drawer-navigation"
+                onClick={() => setIsDrawerOpen(!isDrawerOpen)} // Alternar visibilidad del drawer
                 aria-controls="drawer-navigation"
               >
                 <MenuIcon />
@@ -49,16 +57,10 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Termina la barra superior */}
-
-      <div className="text-center"></div>
-
       {/* Menus */}
-
       <div
         id="drawer-navigation"
-        style={{ backgroundColor: "#1c1d20" }}
-        className="fixed mt-4 top-12 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full border-r border-gray-200"
+        className={`fixed mt-4 top-12 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'} border-r border-gray-200 bg-[#1c1d20]`}
         tabIndex="-1"
         aria-labelledby="drawer-navigation-label"
       >
@@ -70,11 +72,10 @@ const Navbar = () => {
         </h5>
         <button
           type="button"
-          data-drawer-hide="drawer-navigation"
-          aria-controls="drawer-navigation"
+          onClick={() => setIsDrawerOpen(false)} // Cerrar el drawer
           className="text-white bg-transparent hover:bg-gray-800 rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center"
         >
-          <ExitIcon/>
+          <ExitIcon />
           <span className="sr-only">Close menu</span>
         </button>
         <div className="py-4 overflow-y-auto">

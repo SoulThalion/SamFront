@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const UsersTableList = ({ users }) => {
     const formattedusers = users.map((users) => (
-        <div key={users.id}>
+        <tr key={users.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
           <UsersTableRow
             id={users.id}
             userName= {users.userName}
@@ -13,13 +13,13 @@ const UsersTableList = ({ users }) => {
             email={users.email}
             role={users.role}
           />
-        </div>
+        </tr>
       ));
     
       return (
-        <div className="usersList">
+        <>
           {formattedusers}
-        </div>
+        </>
       );
 }
 
