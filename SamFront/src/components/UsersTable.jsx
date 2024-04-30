@@ -1,3 +1,4 @@
+import UserPlusIcon from "../icons/UserPlusIcon";
 import UsersTableList from "./UsersTableList";
 import PropTypes from 'prop-types'
 
@@ -30,9 +31,9 @@ const UsersTable = ({users}) => {
                 <th scope="col" className="px-6 py-3">
                     Role
                 </th>
-                <th scope="col" className="px-6 py-3">
-                    <span className="sr-only">Edit</span>
-                </th>
+                <button scope="col" className="px-4 py-3 border-l border-gray-20">
+                    <UserPlusIcon/>
+                </button>
             </tr>
         </thead>
         <tbody>

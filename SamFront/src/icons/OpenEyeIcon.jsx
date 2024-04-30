@@ -1,7 +1,7 @@
 const OpenEyeIcon = () => {
   return (
     <svg
-      className="w-6 h-6 text-gray-800 dark:text-white"
+      className="w-6 h-6"
       data-slot="icon"
       fill="none"
       strokeWidth="1.5"

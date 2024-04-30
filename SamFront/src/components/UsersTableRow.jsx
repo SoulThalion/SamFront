@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import EditIcon from '../icons/EditIcon';
 
 const UsersTableRow = ({id, userName, name, surName, telephone, email, role}) => {
   return (
@@ -24,9 +25,9 @@ const UsersTableRow = ({id, userName, name, surName, telephone, email, role}) =>
                 <td className="px-6 py-4">
                     {role}
                 </td>
-                <td className="px-6 py-4 text-right bg-[#242529] border-l border-gray-20">
-                    <a href="#" className="font-medium text-blue-600 hover:underline">Edit</a>
-                </td>
+                <button className="px-4 py-4 bg-[#242529] border-l border-gray-20">
+                    <EditIcon/>
+                </button>
             </>
   )
 }
