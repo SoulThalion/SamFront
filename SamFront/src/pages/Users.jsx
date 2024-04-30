@@ -19,7 +19,7 @@ const Users = () => {
     <div className="text-white" style={{ backgroundColor: "#1c1d20" }}>
       
       <div className="flex justify-center items-center h-screen text-white">
-        <UsersTable />
+        <UsersTable users={users}/>
       </div><h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">Users</h1>
     </div>
   );
