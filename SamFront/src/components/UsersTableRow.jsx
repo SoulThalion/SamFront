@@ -25,7 +25,7 @@ const UsersTableRow = ({id, userName, name, surName, telephone, email, role}) =>
                 <td className="px-6 py-4">
                     {role}
                 </td>
-                <button className="px-4 py-4 bg-[#242529] border-l border-gray-20">
+                <button className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]">
                     <EditIcon/>
                 </button>
             </>

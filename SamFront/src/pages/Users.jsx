@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../services/users.service";
 import UsersTable from "../components/UsersTable";
+import NewUser from "../components/NewUser";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -20,6 +21,7 @@ const Users = () => {
       
       <div className="flex justify-center items-center h-screen text-white">
         <UsersTable users={users}/>
+        <NewUser/>
       </div><h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">Users</h1>
     </div>
   );

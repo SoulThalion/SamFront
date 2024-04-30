@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const UsersTableList = ({ users }) => {
     const formattedUsers = users.map((users) => (
-        <tr key={users.id} className="bg-[#21212d] text-white hover:bg-[#323337] border-b border-t border-gray-20">
+        <tr key={users.id} className="bg-[#21212d] text-white hover:bg-[#323337] border-b border-t border-[#58aaae]">
           <UsersTableRow
             id={users.id}
             userName= {users.userName}

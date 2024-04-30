@@ -7,7 +7,7 @@ const UsersTable = ({users}) => {
     
 
 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table className="w-full text-sm text-left rtl:text-right text-white border border-gray-20">
+    <table className="w-full text-sm text-left rtl:text-right text-white border border-[#58aaae]">
         <thead className="text-xs text-white uppercase bg-[#242529]">
             <tr>
                 <th scope="col" className="px-6 py-3">
@@ -31,7 +31,7 @@ const UsersTable = ({users}) => {
                 <th scope="col" className="px-6 py-3">
                     Role
                 </th>
-                <button scope="col" className="px-4 py-3 border-l border-gray-20">
+                <button scope="col" className="px-4 py-3 border-l border-[#58aaae]">
                     <UserPlusIcon/>
                 </button>
             </tr>

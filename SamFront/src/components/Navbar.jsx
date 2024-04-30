@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="fixed top-0 z-50 w-full border-b border-gray-20 text-white bg-[#1c1d20]"
+        className="fixed top-0 z-50 w-full border-b border-[#58aaae] text-white bg-[#1c1d20]"
       >
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
@@ -60,7 +60,7 @@ const Navbar = () => {
       {/* Menus */}
       <div
         id="drawer-navigation"
-        className={`fixed mt-4 top-12 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'} border-r border-gray-200 bg-[#1c1d20]`}
+        className={`fixed mt-4 top-12 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'} border-r border-[#58aaae] bg-[#1c1d20]`}
         tabIndex="-1"
         aria-labelledby="drawer-navigation-label"
       >

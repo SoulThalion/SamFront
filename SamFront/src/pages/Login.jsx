@@ -36,7 +36,7 @@ const Login = () => {
         Ship Assignment Management
       </h3>
       <form
-        className="w-full max-w-md rounded-lg p-6 border border-58aaae"
+        className="w-full max-w-md rounded-lg p-6 border border-[#58aaae]"
         style={{ backgroundColor: "#242529" }}
         onSubmit={handleLogin}
       >
