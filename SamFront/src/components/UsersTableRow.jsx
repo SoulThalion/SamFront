@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types'
 
 const UsersTableRow = ({id, userName, name, surName, telephone, email, role}) => {
-
-
-    
   return (
     <>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
                     {id}
                 </th>
                 <td className="px-6 py-4">
@@ -27,8 +24,8 @@ const UsersTableRow = ({id, userName, name, surName, telephone, email, role}) =>
                 <td className="px-6 py-4">
                     {role}
                 </td>
-                <td className="px-6 py-4 text-right">
-                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                <td className="px-6 py-4 text-right bg-[#242529] border-l border-gray-20">
+                    <a href="#" className="font-medium text-blue-600 hover:underline">Edit</a>
                 </td>
             </>
   )

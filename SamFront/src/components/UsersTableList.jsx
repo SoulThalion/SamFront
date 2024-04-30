@@ -2,8 +2,8 @@ import UsersTableRow from "./UsersTableRow";
 import PropTypes from 'prop-types'
 
 const UsersTableList = ({ users }) => {
-    const formattedusers = users.map((users) => (
-        <tr key={users.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+    const formattedUsers = users.map((users) => (
+        <tr key={users.id} className="bg-[#21212d] text-white hover:bg-[#323337] border-b border-t border-gray-20">
           <UsersTableRow
             id={users.id}
             userName= {users.userName}
@@ -18,13 +18,13 @@ const UsersTableList = ({ users }) => {
     
       return (
         <>
-          {formattedusers}
+          {formattedUsers}
         </>
       );
 }
 
 UsersTableList.propTypes = {
-    users: PropTypes.array,
+    users: PropTypes.object,
   };
 
 export default UsersTableList

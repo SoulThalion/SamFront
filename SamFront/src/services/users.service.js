@@ -9,7 +9,7 @@ export const getAllUsers = async () => {
             }
         })
     
-        return data//JSON.stringify(data)
+        return data
     
       } catch (error) {
         console.log('Error loging: ', error.message)
