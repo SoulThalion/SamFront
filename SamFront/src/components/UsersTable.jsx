@@ -2,7 +2,7 @@ import UserPlusIcon from "../icons/UserPlusIcon";
 import UsersTableList from "./UsersTableList";
 import PropTypes from 'prop-types'
 
-const UsersTable = ({users}) => {
+const UsersTable = ({users, setNewButton, newButton}) => {
   return (
     
 
@@ -31,9 +31,11 @@ const UsersTable = ({users}) => {
                 <th scope="col" className="px-6 py-3">
                     Role
                 </th>
-                <button scope="col" className="px-4 py-3 border-l border-[#58aaae]">
+                <td>
+                <button scope="col" className="px-4 py-3 border-l border-[#58aaae]" onClick={()=> setNewButton(!newButton)}>
                     <UserPlusIcon/>
                 </button>
+                </td>
             </tr>
         </thead>
         <tbody>
@@ -49,6 +51,8 @@ const UsersTable = ({users}) => {
 
 UsersTable.propTypes = {
     users: PropTypes.array,
+    setNewButton: PropTypes.func,
+    newButton: PropTypes.bool
   };
 
 export default UsersTable

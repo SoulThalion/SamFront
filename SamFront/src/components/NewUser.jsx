@@ -1,11 +1,35 @@
 import PropTypes from "prop-types";
+import { createUser } from "../services/users.service";
 
-const NewUser = () => {
+const NewUser = ({setNewButton, newButton}) => {
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+    
+        const userName = event.target.userName.value;
+        const name = event.target.name.value;
+        const surName = event.target.surName.value;
+        const telephone = event.target.telephone.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        const role = event.target.role.value;
+    
+        try {
+            const newUser = await createUser(userName, name, surName, telephone, email, password, role);
+            console.log('Usuario creado:', newUser);
+    
+            // Limpiar el formulario o realizar otras acciones después de crear el usuario
+        } catch (error) {
+            console.error('Error al crear el usuario:', error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        }
+    };
+
   return (
     <div className="flex flex-col justify-center items-center h-screen w-screen">
-      <form className="w-full max-w-md rounded-lg p-5 border border-[#58aaae] bg-[#242529]">
-        <div className="grid md:grid-cols-2 md:gap-6 border-b border-[#58aaae]">
-          <div className="mb-4">
+      <form className="w-full max-w-md rounded-lg p-5 border border-[#58aaae] bg-[#242529]" onSubmit={handleSubmit}>
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="mb-0">
             <label
               htmlFor="userName"
               className="block mb-2 text-sm font-medium text-white"
@@ -22,7 +46,7 @@ const NewUser = () => {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-0">
             <label
               htmlFor="password"
               className="block mb-2 text-sm font-medium text-white"
@@ -42,7 +66,7 @@ const NewUser = () => {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-0">
             <label
               htmlFor="name"
               className="block mb-2 text-sm font-medium text-white"
@@ -59,7 +83,7 @@ const NewUser = () => {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-0">
             <label
               htmlFor="surName"
               className="block mb-2 text-sm font-medium text-white"
@@ -76,7 +100,7 @@ const NewUser = () => {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-0">
             <label
               htmlFor="email"
               className="block mb-2 text-sm font-medium text-white"
@@ -93,7 +117,7 @@ const NewUser = () => {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-0">
             <label
               htmlFor="telephone"
               className="block mb-2 text-sm font-medium text-white"
@@ -110,7 +134,7 @@ const NewUser = () => {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-0">
             <label
               htmlFor="role"
               className="block mb-2 text-sm font-medium text-white"
@@ -131,7 +155,7 @@ const NewUser = () => {
 
         
         <div className="flex justify-center">
-        <div className="grid md:grid-cols-2 md:gap-14 pt-5">
+        <div className="grid md:grid-cols-2 md:gap-14 pt-5 mt-5  border-t border-[#58aaae]">
           <button
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 text-center"
@@ -141,6 +165,7 @@ const NewUser = () => {
 
           <button
             type="button"
+            onClick={()=> setNewButton(!newButton)}
             className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 text-center"
           >
             Cancelar

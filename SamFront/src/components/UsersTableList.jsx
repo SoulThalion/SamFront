@@ -24,7 +24,7 @@ const UsersTableList = ({ users }) => {
 }
 
 UsersTableList.propTypes = {
-    users: PropTypes.object,
+    users: PropTypes.array,
   };
 
 export default UsersTableList

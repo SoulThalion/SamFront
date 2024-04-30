@@ -1,6 +1,6 @@
 import app from './config'
 
-const login = async (userName, password) => {
+export const login = async (userName, password) => {
    try {
       const { data } = await app.post('/auth/login', {
         userName,
@@ -13,5 +13,3 @@ const login = async (userName, password) => {
       console.log('Error loging: ', error.message)
     }
   }
-
-  export default login

@@ -5,11 +5,11 @@ import NewUser from "../components/NewUser";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [newButton, setNewButton] = useState(false)
 
   useEffect(() => {
     const fetchAllUsers = async () => {
       const data = await getAllUsers();
-      console.log(data);
       setUsers(data);
     };
 
@@ -18,13 +18,22 @@ const Users = () => {
 
   return (
     <div className="text-white" style={{ backgroundColor: "#1c1d20" }}>
-      
       <div className="flex justify-center items-center h-screen text-white">
-        <UsersTable users={users}/>
-        <NewUser/>
-      </div><h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">Users</h1>
+        {newButton ? (
+          <>
+          <NewUser setNewButton={setNewButton} newButton={newButton}/>
+          <h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">Nuevo Usuario</h1>
+          </>
+        ) : (
+          <>
+            <UsersTable users={users} setNewButton={setNewButton} newButton={newButton}/>
+            <h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">Usuarios</h1>
+          </>
+        )}
+      </div>
     </div>
   );
+  
 };
 
 export default Users;
