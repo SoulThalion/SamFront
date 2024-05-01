@@ -64,24 +64,30 @@ export const updateUser = async (id, userName, name, surName, telephone, email, 
 
     try {
         // Realizar la solicitud PATCH para editar un nuevo usuario
-        const { data } = await app.patch(`/user/${id}`, {
+        const userData = {
             userName: userName,
             name: name,
             surName: surName,
             telephone: telephone,
             email: email,
-            password: password,
             role: role
-        }, {
+        };
+    
+        // Añadir la contraseña al objeto userData solo si no está vacía
+        if (password !== '') {
+            userData.password = password;
+        }
+    
+        const { data } = await app.patch(`/user/${id}`, userData, {
             headers: {
                 token: token // Incluir el token en el encabezado de autorización
             }
         });
 
-        return data; // Devolver los datos del usuario editado
+    return data; // Devolver los datos del usuario editado
 
-    } catch (error) {
-        console.error('Error al crear el usuario:', error);
-        throw error; // Propagar el error para que pueda ser manejado por el código que llama a esta función
-    }
+} catch (error) {
+    console.error('Error al crear el usuario:', error);
+    throw error; // Propagar el error para que pueda ser manejado por el código que llama a esta función
+}
 };

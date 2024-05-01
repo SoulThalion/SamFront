@@ -1,8 +1,9 @@
 import './App.css'
 import router from './router/router'
-import { UserContext } from './context/userContext'
+import { EditUserContext, UserContext } from './context/userContext'
 import { useState } from 'react'
 import { RouterProvider } from 'react-router-dom'
+
 
 function App() {
   const [user, setUser] = useState(null)
@@ -11,7 +12,9 @@ function App() {
     
     <>
     <UserContext.Provider value={{user, setUser}}>
+    {/*<EditUserContext.Provider value={{editUser, setEditUser}}>*/}
       <RouterProvider router={router}/>
+      {/*</EditUserContext.Provider>*/}
     </UserContext.Provider>
     </>
   )

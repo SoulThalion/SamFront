@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "../services/users.service";
 import UsersTable from "../components/UsersTable";
 import NewUser from "../components/NewUser";
+import EditUser from "../components/EditUser";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [newButton, setNewButton] = useState(false)
+  const [editUserData, setEditUserData] = useState([])
 
   useEffect(() => {
     const fetchAllUsers = async () => {
@@ -26,10 +28,12 @@ const Users = () => {
           </>
         ) : (
           <>
-            <UsersTable users={users} setNewButton={setNewButton} newButton={newButton}/>
+            <UsersTable users={users} setNewButton={setNewButton} newButton={newButton} setEditUserData={setEditUserData}/>
             <h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">Usuarios</h1>
           </>
         )}
+
+        <EditUser editUserData={editUserData}/>
       </div>
     </div>
   );

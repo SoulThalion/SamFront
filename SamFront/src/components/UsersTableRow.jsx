@@ -1,7 +1,15 @@
 import PropTypes from 'prop-types'
 import EditIcon from '../icons/EditIcon';
+//import { useContext } from 'react';
+//import {EditUserContext} from '../context/userContext'
 
-const UsersTableRow = ({id, userName, name, surName, telephone, email, role}) => {
+
+
+const UsersTableRow = ({id, userName, name, surName, telephone, email, role, setEditUserData}) => {
+
+    //const { editUser, setEditUser } = useContext(EditUserContext);
+    
+
   return (
     <>
                 <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
@@ -26,7 +34,7 @@ const UsersTableRow = ({id, userName, name, surName, telephone, email, role}) =>
                     {role}
                 </td>
                 <td>
-                <button className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]">
+                <button className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]" onClick={()=>{setEditUserData({id:id, userName:userName, name:name, surName:surName, telephone:telephone, email:email, role:role})}}>
                     <EditIcon/>
                 </button>
                 </td>
@@ -42,6 +50,7 @@ UsersTableRow.propTypes = {
     telephone: PropTypes.string,
     email: PropTypes.string,
     role: PropTypes.string,
+    setEditUserData: PropTypes.func
   };
 
 export default UsersTableRow
