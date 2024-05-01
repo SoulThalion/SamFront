@@ -38,3 +38,30 @@ export const deleteShip = async (id) => {
     throw error; // Propagar el error para que pueda ser manejado por el código que llama a esta función
 }
 };
+
+export const createShip = async (userName, name, surName, telephone, email, password, role) => {
+    const token = localStorage.getItem('token');
+
+    try {
+        // Realizar la solicitud POST para crear un nuevo usuario
+        const { data } = await app.post('/user', {
+            userName: userName,
+            name: name,
+            surName: surName,
+            telephone: telephone,
+            email: email,
+            password: password,
+            role: role
+        }, {
+            headers: {
+                token: token // Incluir el token en el encabezado de autorización
+            }
+        });
+
+        return data; // Devolver los datos del nuevo usuario creado
+
+    } catch (error) {
+        console.error('Error al crear el usuario:', error);
+        throw error; // Propagar el error para que pueda ser manejado por el código que llama a esta función
+    }
+};
