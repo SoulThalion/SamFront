@@ -38,7 +38,7 @@ const Users = () => {
       <div className="flex justify-center items-center h-screen text-white">
         {newButton ? (
           <>
-            <NewUser setNewButton={setNewButton} newButton={newButton} />
+            <NewUser setNewButton={setNewButton} newButton={newButton}/>
             <h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">
               Nuevo Usuario
             </h1>
