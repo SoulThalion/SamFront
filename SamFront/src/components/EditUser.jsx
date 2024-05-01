@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { updateUser } from "../services/users.service";
-import DeleteIcon from '../icons/DeleteIcon'
 //import { useContext } from "react";
 //import {EditUserContext} from '../context/userContext'
 

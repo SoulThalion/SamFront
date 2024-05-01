@@ -97,7 +97,7 @@ export const deleteUser = async (id) => {
     console.log(id)
     const ide= id
     try {   
-        const data  = await app.delete(`/user/${ide}`, {
+        await app.delete(`/user/${ide}`, {
             headers: {
                 token: token // Incluir el token en el encabezado de autorización
             }
