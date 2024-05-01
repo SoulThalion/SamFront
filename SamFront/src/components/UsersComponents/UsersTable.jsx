@@ -1,4 +1,4 @@
-import UserPlusIcon from "../icons/UserPlusIcon";
+import UserPlusIcon from "../../icons/UserPlusIcon";
 import UsersTableList from "./UsersTableList";
 import PropTypes from "prop-types";
 

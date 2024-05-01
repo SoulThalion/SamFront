@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { createUser } from "../services/users.service";
+import { createUser } from "../../services/users.service";
 
 const NewUser = ({setNewButton, newButton}) => {
 

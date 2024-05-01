@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../services/users.service";
-import UsersTable from "../components/UsersTable";
-import NewUser from "../components/NewUser";
+import UsersTable from "../components/UsersComponents/UsersTable";
+import NewUser from "../components/UsersComponents/NewUser";
 import EditUser from "../components/EditUser";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/UsersComponents/SearchBar";
 
 const Users = () => {
   const [users, setUsers] = useState([]);

@@ -1,4 +1,4 @@
-import SearchIcon from "../icons/SearchIcon";
+import SearchIcon from "../../icons/SearchIcon";
 import PropTypes from "prop-types";
 
 const SearchBar = ({setSearchValue, searchValue}) => {
