@@ -92,7 +92,7 @@ UsersTableRow.propTypes = {
   setEditUserData: PropTypes.func,
   setEditButton: PropTypes.func,
   editButton: PropTypes.bool,
-  setDeletetButton: PropTypes.func,
+  setDeleteButton: PropTypes.func,
   deleteButton: PropTypes.bool,
 };
 

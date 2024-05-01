@@ -75,7 +75,7 @@ UsersTable.propTypes = {
   setEditUser: PropTypes.func,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
-  setDeletetButton: PropTypes.func,
+  setDeleteButton: PropTypes.func,
   deleteButton: PropTypes.bool,
 };
 
