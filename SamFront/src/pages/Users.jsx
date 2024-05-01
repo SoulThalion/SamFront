@@ -9,7 +9,6 @@ const Users = () => {
   const [newButton, setNewButton] = useState(false)
   const [editButton, setEditButton] = useState(false)
   const [editUserData, setEditUserData] = useState([])
-  console.log(editButton)
 
   useEffect(() => {
     const fetchAllUsers = async () => {

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { updateUser } from "../services/users.service";
+import DeleteIcon from '../icons/DeleteIcon'
 //import { useContext } from "react";
 //import {EditUserContext} from '../context/userContext'
 
@@ -43,10 +44,13 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen w-screen">
+      
       <form
         className="w-full max-w-md rounded-lg p-5 border border-[#58aaae] bg-[#242529]"
         onSubmit={handleSubmit}
       >
+      
+    
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="mb-0">
             <label

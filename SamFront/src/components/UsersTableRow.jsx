@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import EditIcon from "../icons/EditIcon";
+import DeleteIcon from "../icons/DeleteIcon";
 //import { useContext } from 'react';
 //import {EditUserContext} from '../context/userContext'
 
@@ -48,6 +49,11 @@ const UsersTableRow = ({
           <EditIcon />
         </button>
       </td>
+      <td>
+        <button className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]">
+      <DeleteIcon />
+      </button>
+      </td>
     </>
   );
 };
@@ -61,6 +67,8 @@ UsersTableRow.propTypes = {
   email: PropTypes.string,
   role: PropTypes.string,
   setEditUserData: PropTypes.func,
+  setEditButton: PropTypes.func,
+  editButton: PropTypes.bool
 };
 
 export default UsersTableRow;

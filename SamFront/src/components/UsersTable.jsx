@@ -1,3 +1,4 @@
+import DeleteIcon from "../icons/DeleteIcon";
 import UserPlusIcon from "../icons/UserPlusIcon";
 import UsersTableList from "./UsersTableList";
 import PropTypes from 'prop-types'
@@ -31,11 +32,12 @@ const UsersTable = ({users, setNewButton, newButton, setEditUserData, editButton
                 <th scope="col" className="px-6 py-3">
                     Role
                 </th>
-                <td>
+                <td colSpan="2">
                 <button scope="col" className="px-4 py-3 border-l border-[#58aaae]" onClick={()=> setNewButton(!newButton)}>
                     <UserPlusIcon/>
                 </button>
                 </td>
+                
             </tr>
         </thead>
         <tbody>
