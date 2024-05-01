@@ -2,15 +2,18 @@ import PropTypes from "prop-types";
 import { updateClient } from "../../services/clients.service";
 import { getShipsByClientId } from "../../services/ship.service";
 import { useEffect, useState } from "react";
-import ShipsTable from '../ShipsComponents/ShipsTable'
+import ShipsTable from "../ShipsComponents/ShipsTable";
 //import { useContext } from "react";
 //import {EditUserContext} from '../context/userContext'
 
 const EditUser = ({ editUserData, editButton, setEditButton }) => {
   //const { editUser, setEditUser } = useContext(EditUserContext);
 
-  const [ships, setShips] = useState([])
-  
+  const [ships, setShips] = useState([]);
+  const [newButton, setNewButton] = useState(false);
+  const [deleteButton, setDeleteButton] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+
   useEffect(() => {
     const fetchAllShips = async () => {
       const data = await getShipsByClientId(editUserData.id);
@@ -18,7 +21,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
     };
 
     fetchAllShips();
-  }, []);
+  }, [deleteButton]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -187,7 +190,11 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
           </div>
         </div>
 
-        <ShipsTable ships={ships}/>
+        <ShipsTable
+          ships={ships}
+          deleteButton={deleteButton}
+          setDeleteButton={setDeleteButton}
+        />
 
         <div className="flex justify-center">
           <div className="grid md:grid-cols-2 md:gap-14 pt-5 mt-5  border-t border-[#58aaae]">

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import EditIcon from "../../icons/EditIcon";
 import DeleteIcon from "../../icons/DeleteIcon";
-import { deleteClient } from "../../services/clients.service";
+import { deleteShip } from "../../services/ship.service";
 //import { useContext } from 'react';
 //import {EditUserContext} from '../context/userContext'
 
@@ -27,7 +27,7 @@ const ShipsTableRow = ({
     // Si el usuario confirma la eliminación
     if (confirmation) {
         try {
-            const update = await deleteClient(id);
+            const update = await deleteShip(id);
 
             setDeleteButton(!deleteButton);
             
