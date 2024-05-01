@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { getAllUsers } from "../services/users.service";
-import UsersTable from "../components/UsersComponents/UsersTable";
-import NewUser from "../components/UsersComponents/NewUser";
-import EditUser from "../components/EditUser";
-import SearchBar from "../components/UsersComponents/SearchBar";
+import { getAllClients } from "../services/clients.service";
+import ClientsTable from "../components/ClientsComponents/ClientsTable";
+import NewClient from "../components/ClientsComponents/NewClient";
+import EditClient from "../components/ClientsComponents/EditClient";
+import SearchBar from "../components/ClientsComponents/SearchBar";
 
 const Clients = () => {
-  const [users, setUsers] = useState([]);
+  const [clients, setClients] = useState([]);
   const [newButton, setNewButton] = useState(false);
   const [editButton, setEditButton] = useState(false);
   const [deleteButton, setDeleteButton] = useState(false);
@@ -14,16 +14,16 @@ const Clients = () => {
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    const fetchAllUsers = async () => {
-      const data = await getAllUsers();
-      setUsers(data);
+    const fetchAllClients = async () => {
+      const data = await getAllClients();
+      setClients(data);
     };
 
-    fetchAllUsers();
+    fetchAllClients();
   }, [newButton, editButton, deleteButton]);
 
-  const filteredUsers = users.filter((user) => {
-    return Object.values(user).some((value) => {
+  const filteredUsers = clients.filter((client) => {
+    return Object.values(client).some((value) => {
       if (typeof value === "string" || typeof value === "number") {
         return value
           .toString()
@@ -41,9 +41,9 @@ const Clients = () => {
         {/* NewUser */}
         {newButton && (
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center">
-            <NewUser setNewButton={setNewButton} newButton={newButton} />
+            <NewClient setNewButton={setNewButton} newButton={newButton} />
             <h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">
-              Nuevo Usuario
+              Nuevo Cliente
             </h1>
           </div>
         )}
@@ -51,13 +51,13 @@ const Clients = () => {
         {/* EditUser */}
         {editButton && (
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center">
-            <EditUser
+            <EditClient
               editUserData={editUserData}
               setEditButton={setEditButton}
               editButton={editButton}
             />
             <h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">
-              Editar Usuario
+              Editar Cliente
             </h1>
           </div>
         )}
@@ -76,7 +76,7 @@ const Clients = () => {
               />
             </div>
             <div className="col-span-2">
-              <UsersTable
+              <ClientsTable
                 filteredUsers={filteredUsers}
                 setNewButton={setNewButton}
                 newButton={newButton}
@@ -91,7 +91,7 @@ const Clients = () => {
 
           {!newButton && !editButton && (
             <h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">
-              Usuarios
+              Clientes
             </h1>
           )}
         </div>
