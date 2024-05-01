@@ -2,7 +2,7 @@ import UserPlusIcon from "../icons/UserPlusIcon";
 import UsersTableList from "./UsersTableList";
 import PropTypes from 'prop-types'
 
-const UsersTable = ({users, setNewButton, newButton, setEditUserData}) => {
+const UsersTable = ({users, setNewButton, newButton, setEditUserData, editButton, setEditButton}) => {
   return (
     
 
@@ -40,7 +40,7 @@ const UsersTable = ({users, setNewButton, newButton, setEditUserData}) => {
         </thead>
         <tbody>
             
-            <UsersTableList users={users} setEditUserData={setEditUserData}/>
+            <UsersTableList users={users} setEditUserData={setEditUserData} setEditButton={setEditButton} editButton={editButton}/>
             
         </tbody>
     </table>
@@ -53,7 +53,9 @@ UsersTable.propTypes = {
     users: PropTypes.array,
     setNewButton: PropTypes.func,
     newButton: PropTypes.bool,
-    setEditUserData: PropTypes.func
+    setEditUserData: PropTypes.func,
+    editUser: PropTypes.bool,
+    setEditUser: PropTypes.func
   };
 
 export default UsersTable
