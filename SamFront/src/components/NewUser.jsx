@@ -17,6 +17,8 @@ const NewUser = ({setNewButton, newButton}) => {
         try {
             const newUser = await createUser(userName, name, surName, telephone, email, password, role);
             console.log('Usuario creado:', newUser);
+            window.alert("Usuario Creado")
+            setNewButton(!newButton)
     
             // Limpiar el formulario o realizar otras acciones después de crear el usuario
         } catch (error) {
@@ -179,6 +181,8 @@ const NewUser = ({setNewButton, newButton}) => {
 
 NewUser.propTypes = {
   users: PropTypes.array,
+  setNewButton: PropTypes.func,
+  newButton: PropTypes.bool
 };
 
 export default NewUser;

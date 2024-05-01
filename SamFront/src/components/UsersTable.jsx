@@ -9,11 +9,11 @@ const UsersTable = ({
   setEditUserData,
   editButton,
   setEditButton,
-  deleteButton, 
-  setDeleteButton
+  deleteButton,
+  setDeleteButton,
 }) => {
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg overflow-y-scroll lg:max-h-[360px] xl:max-h-[500px]" style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'thin', scrollbarColor: '#4b5563 #718096' }}>
       <table className="w-full text-sm text-left rtl:text-right text-white border border-[#58aaae]">
         <thead className="text-xs text-white uppercase bg-[#242529]">
           <tr>
@@ -57,7 +57,7 @@ const UsersTable = ({
             setEditButton={setEditButton}
             editButton={editButton}
             deleteButton={deleteButton}
-              setDeleteButton={setDeleteButton}
+            setDeleteButton={setDeleteButton}
           />
         </tbody>
       </table>

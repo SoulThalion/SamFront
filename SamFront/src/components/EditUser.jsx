@@ -31,7 +31,8 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
           role
         );
       
-
+        window.alert("Usuario Editado")
+        setEditButton(!editButton)
       console.log("Usuario editado:", update);
 
       // Limpiar el formulario o realizar otras acciones después de crear el usuario

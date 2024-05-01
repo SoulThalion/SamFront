@@ -6,8 +6,8 @@ const UsersTableList = ({
   setEditUserData,
   setEditButton,
   editButton,
-  deleteButton, 
-  setDeleteButton
+  deleteButton,
+  setDeleteButton,
 }) => {
   const formattedUsers = users.map((users) => (
     <tr
@@ -26,7 +26,7 @@ const UsersTableList = ({
         setEditButton={setEditButton}
         editButton={editButton}
         deleteButton={deleteButton}
-              setDeleteButton={setDeleteButton}
+        setDeleteButton={setDeleteButton}
       />
     </tr>
   ));

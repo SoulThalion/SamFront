@@ -24,19 +24,30 @@ const UsersTableRow = ({
   const handleDelete = async (event) => {
     event.preventDefault();
 
-    console.log(id);
-    try {
-      const update = await deleteUser(id);
+    // Mostrar el cuadro de diálogo de confirmación
+    const confirmation = window.confirm("¿Estás seguro de que deseas eliminar este usuario?");
 
-      setDeleteButton(!deleteButton);
-      console.log("Usuario editado:", update);
+    // Si el usuario confirma la eliminación
+    if (confirmation) {
+        try {
+            const update = await deleteUser(id);
 
-      // Limpiar el formulario o realizar otras acciones después de crear el usuario
-    } catch (error) {
-      console.error("Error al crear el usuario:", error);
-      // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+            setDeleteButton(!deleteButton);
+            
+            // Realizar cualquier otra acción necesaria después de eliminar el usuario
+            console.log("Usuario eliminado:", update);
+            
+            // Limpiar el formulario u otras acciones después de eliminar el usuario
+        } catch (error) {
+            console.error("Error al eliminar el usuario:", error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        }
+    } else {
+        // Si el usuario cancela, no hacemos nada
+        return;
     }
-  };
+};
+
 
   return (
     <>
