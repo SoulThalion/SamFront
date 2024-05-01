@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import EditIcon from "../icons/EditIcon";
 import DeleteIcon from "../icons/DeleteIcon";
+import { deleteUser } from "../services/users.service";
 //import { useContext } from 'react';
 //import {EditUserContext} from '../context/userContext'
 
@@ -15,8 +16,27 @@ const UsersTableRow = ({
   setEditUserData,
   setEditButton,
   editButton,
+  deleteButton,
+  setDeleteButton,
 }) => {
   //const { editUser, setEditUser } = useContext(EditUserContext);
+
+  const handleDelete = async (event) => {
+    event.preventDefault();
+
+    console.log(id);
+    try {
+      const update = await deleteUser(id);
+
+      setDeleteButton(!deleteButton);
+      console.log("Usuario editado:", update);
+
+      // Limpiar el formulario o realizar otras acciones después de crear el usuario
+    } catch (error) {
+      console.error("Error al crear el usuario:", error);
+      // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+    }
+  };
 
   return (
     <>
@@ -43,16 +63,19 @@ const UsersTableRow = ({
               role: role,
             });
 
-            setEditButton(!editButton)
+            setEditButton(!editButton);
           }}
         >
           <EditIcon />
         </button>
       </td>
       <td>
-        <button className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]">
-      <DeleteIcon />
-      </button>
+        <button
+          className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
+          onClick={handleDelete}
+        >
+          <DeleteIcon />
+        </button>
       </td>
     </>
   );
@@ -68,7 +91,7 @@ UsersTableRow.propTypes = {
   role: PropTypes.string,
   setEditUserData: PropTypes.func,
   setEditButton: PropTypes.func,
-  editButton: PropTypes.bool
+  editButton: PropTypes.bool,
 };
 
 export default UsersTableRow;

@@ -91,3 +91,23 @@ export const updateUser = async (id, userName, name, surName, telephone, email, 
     throw error; // Propagar el error para que pueda ser manejado por el código que llama a esta función
 }
 };
+
+export const deleteUser = async (id) => {
+    const token = localStorage.getItem('token');
+    console.log(id)
+    const ide= id
+    try {   
+        const data  = await app.delete(`/user/${ide}`, {
+            headers: {
+                token: token // Incluir el token en el encabezado de autorización
+            }
+        });
+        
+
+    return "User deleted"
+
+} catch (error) {
+    console.error('Error al borrar el usuario:', error);
+    throw error; // Propagar el error para que pueda ser manejado por el código que llama a esta función
+}
+};
