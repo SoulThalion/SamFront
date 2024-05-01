@@ -3,7 +3,7 @@ import UsersTableList from "./UsersTableList";
 import PropTypes from "prop-types";
 
 const UsersTable = ({
-  users,
+  filteredUsers,
   setNewButton,
   newButton,
   setEditUserData,
@@ -52,7 +52,7 @@ const UsersTable = ({
         </thead>
         <tbody>
           <UsersTableList
-            users={users}
+            filteredUsers={filteredUsers}
             setEditUserData={setEditUserData}
             setEditButton={setEditButton}
             editButton={editButton}
@@ -66,7 +66,7 @@ const UsersTable = ({
 };
 
 UsersTable.propTypes = {
-  users: PropTypes.array,
+  filteredUsers: PropTypes.array,
   setNewButton: PropTypes.func,
   newButton: PropTypes.bool,
   setEditUserData: PropTypes.func,

@@ -2,26 +2,26 @@ import UsersTableRow from "./UsersTableRow";
 import PropTypes from "prop-types";
 
 const UsersTableList = ({
-  users,
+  filteredUsers,
   setEditUserData,
   setEditButton,
   editButton,
   deleteButton,
   setDeleteButton,
 }) => {
-  const formattedUsers = users.map((users) => (
+  const formattedUsers = filteredUsers.map((filteredUsers) => (
     <tr
-      key={users.id}
+      key={filteredUsers.id}
       className="bg-[#21212d] text-white hover:bg-[#323337] border-b border-t border-[#58aaae]"
     >
       <UsersTableRow
-        id={users.id}
-        userName={users.userName}
-        name={users.name}
-        surName={users.surName}
-        telephone={users.telephone}
-        email={users.email}
-        role={users.role}
+        id={filteredUsers.id}
+        userName={filteredUsers.userName}
+        name={filteredUsers.name}
+        surName={filteredUsers.surName}
+        telephone={filteredUsers.telephone}
+        email={filteredUsers.email}
+        role={filteredUsers.role}
         setEditUserData={setEditUserData}
         setEditButton={setEditButton}
         editButton={editButton}
@@ -35,7 +35,7 @@ const UsersTableList = ({
 };
 
 UsersTableList.propTypes = {
-  users: PropTypes.array,
+  filteredUsers: PropTypes.array,
   setEditUserData: PropTypes.func,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
