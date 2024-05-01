@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { updateClient } from "../../services/clients.service";
 import { getShipsByClientId } from "../../services/ship.service";
 import { useEffect, useState } from "react";
-import ShipsTable from '../ShipsComponents/ShipsTable'
+import ShipsTable from './ShipsTable'
 //import { useContext } from "react";
 //import {EditUserContext} from '../context/userContext'
 

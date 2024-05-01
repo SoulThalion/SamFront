@@ -34,7 +34,7 @@ const Clients = () => {
     });
   });
 
-  console.log(filteredUsers);
+  
   return (
     <div className="text-white bg-[#1c1d20] relative">
       <div className="flex justify-center items-center h-screen text-white">
