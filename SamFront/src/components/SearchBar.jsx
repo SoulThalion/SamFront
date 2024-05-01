@@ -18,7 +18,7 @@ const SearchBar = ({setSearchValue, searchValue}) => {
             id="search-dropdown"
             onChange={handleOnChange}
             value={searchValue}
-            className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-[#21212d] rounded-lg border-s-[#58aaae] border-s-2 border border-[#58aaae] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+            className="block p-2.5 w-full z-20 text-sm text-white bg-[#21212d] rounded-lg border-s-[#58aaae] border-s-2 border border-[#58aaae] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
             placeholder="Busca por cualquier campo..."
             required
           />

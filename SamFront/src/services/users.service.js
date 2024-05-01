@@ -16,22 +16,6 @@ export const getAllUsers = async () => {
     }
 }
 
-export const getOneUser = async (id) => {
-    const token = localStorage.getItem('token');
-    try {
-        const { data } = await app.get(`/user/${id}`, {
-            headers: {
-                token: token
-            }
-        })
-
-        return data
-
-    } catch (error) {
-        console.log('Error loging: ', error.message)
-    }
-}
-
 export const createUser = async (userName, name, surName, telephone, email, password, role) => {
     const token = localStorage.getItem('token');
 
