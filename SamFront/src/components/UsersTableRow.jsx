@@ -92,6 +92,8 @@ UsersTableRow.propTypes = {
   setEditUserData: PropTypes.func,
   setEditButton: PropTypes.func,
   editButton: PropTypes.bool,
+  setDeletetButton: PropTypes.func,
+  deleteButton: PropTypes.bool,
 };
 
 export default UsersTableRow;

@@ -38,7 +38,9 @@ UsersTableList.propTypes = {
   users: PropTypes.array,
   setEditUserData: PropTypes.func,
   editButton: PropTypes.bool,
-  setEditButton: PropTypes.func
+  setEditButton: PropTypes.func,
+  setDeletetButton: PropTypes.func,
+  deleteButton: PropTypes.bool,
 };
 
 export default UsersTableList;

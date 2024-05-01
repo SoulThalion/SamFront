@@ -75,6 +75,8 @@ UsersTable.propTypes = {
   setEditUser: PropTypes.func,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
+  setDeletetButton: PropTypes.func,
+  deleteButton: PropTypes.bool,
 };
 
 export default UsersTable;
