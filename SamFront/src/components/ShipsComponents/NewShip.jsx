@@ -22,6 +22,8 @@ const NewShip = ({ setNewButton, newButton, editUserData }) => {
         console.error("Error al crear el usuario:", error);
         // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
       }
+    }else{
+      toast.error("Falta algún dato de el nuevo barco")
     }
   };
 
