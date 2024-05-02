@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { createShip } from "../../services/ship.service";
 import PlusIcon from "../../icons/PlusIcon";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const NewShip = ({ setNewButton, newButton, editUserData }) => {
   const [model, setModel] = useState("");
@@ -14,9 +15,8 @@ const NewShip = ({ setNewButton, newButton, editUserData }) => {
       try {
         const newShip = await createShip(model, brand, reg, editUserData.id);
         console.log("Barco añadido:", newShip);
-        window.alert("Barco añadido");
         setNewButton(!newButton);
-
+        toast.success('Barco añadido!')
         // Limpiar el formulario o realizar otras acciones después de crear el usuario
       } catch (error) {
         console.error("Error al crear el usuario:", error);
