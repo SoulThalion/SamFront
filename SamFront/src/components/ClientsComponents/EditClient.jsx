@@ -10,9 +10,9 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
   //const { editUser, setEditUser } = useContext(EditUserContext);
 
   const [ships, setShips] = useState([]);
-  const [newButton, setNewButton] = useState(false);
+  //const [newButton, setNewButton] = useState(false);
   const [deleteButton, setDeleteButton] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+  //const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     const fetchAllShips = async () => {

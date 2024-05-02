@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { updateClient } from "../../services/clients.service";
-import { getShipsByClientId } from "../../services/ship.service";
-import { useEffect, useState } from "react";
+//import { getShipsByClientId } from "../../services/ship.service";
+//import { useEffect, useState } from "react";
 import ShipsTable from './ShipsTable'
 //import { useContext } from "react";
 //import {EditUserContext} from '../context/userContext'
@@ -9,16 +9,6 @@ import ShipsTable from './ShipsTable'
 const EditUser = ({ editUserData, editButton, setEditButton }) => {
   //const { editUser, setEditUser } = useContext(EditUserContext);
 
-  const [ships, setShips] = useState([])
-  
-  useEffect(() => {
-    const fetchAllShips = async () => {
-      const data = await getShipsByClientId(editUserData.id);
-      setShips(data);
-    };
-
-    fetchAllShips();
-  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

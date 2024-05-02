@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { createClient } from "../../services/clients.service";
 
-const NewClient = ({setNewButton, newButton}) => {
+const NewShip = ({setNewButton, newButton}) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -14,8 +14,8 @@ const NewClient = ({setNewButton, newButton}) => {
         const cif = event.target.cif.value;
     
         try {
-            const newClient = await createClient(address, name, surName, telephone, email, cif);
-            console.log('Cliente creado:', newClient);
+            const newShip = await createClient(address, name, surName, telephone, email, cif);
+            console.log('Cliente creado:', newShip);
             window.alert("Cliente Creado")
             setNewButton(!newButton)
     
@@ -157,10 +157,10 @@ const NewClient = ({setNewButton, newButton}) => {
   );
 };
 
-NewClient.propTypes = {
+NewShip.propTypes = {
   users: PropTypes.array,
   setNewButton: PropTypes.func,
   newButton: PropTypes.bool
 };
 
-export default NewClient;
+export default NewShip;
