@@ -39,19 +39,16 @@ export const deleteShip = async (id) => {
 }
 };
 
-export const createShip = async (userName, name, surName, telephone, email, password, role) => {
+export const createShip = async (model, brand, registration_number, id) => {
     const token = localStorage.getItem('token');
 
     try {
         // Realizar la solicitud POST para crear un nuevo usuario
-        const { data } = await app.post('/user', {
-            userName: userName,
-            name: name,
-            surName: surName,
-            telephone: telephone,
-            email: email,
-            password: password,
-            role: role
+        const { data } = await app.post('/ship', {
+            model: model,
+            brand: brand,
+            registration_number: registration_number,
+            clientId: id
         }, {
             headers: {
                 token: token // Incluir el token en el encabezado de autorización

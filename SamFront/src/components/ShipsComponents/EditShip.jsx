@@ -6,9 +6,8 @@ import ShipsTable from './ShipsTable'
 //import { useContext } from "react";
 //import {EditUserContext} from '../context/userContext'
 
-const EditUser = ({ editUserData, editButton, setEditButton }) => {
+const EditUser = ({ ships, editUserData, editButton, setEditButton }) => {
   //const { editUser, setEditUser } = useContext(EditUserContext);
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -207,6 +206,7 @@ EditUser.propTypes = {
   editUserData: PropTypes.array,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
+  ships: PropTypes.array
 };
 
 export default EditUser;

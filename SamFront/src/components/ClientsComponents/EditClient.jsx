@@ -13,6 +13,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
   const [ships, setShips] = useState([]);
   const [newButton, setNewButton] = useState(false);
   const [deleteButton, setDeleteButton] = useState(false);
+  
   //const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
@@ -26,8 +27,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const id = event.target.id.value;
+    const id = editUserData.id;
     const address = event.target.address.value;
     const name = event.target.name.value;
     const surName = event.target.surName.value;
@@ -188,7 +188,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
 
           
         </div>
-        <NewShip/>
+        <NewShip editUserData={editUserData} setNewButton={setNewButton} newButton={newButton}/>
         <ShipsTable
           ships={ships}
           deleteButton={deleteButton}
@@ -214,9 +214,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
           </div>
         </div>
       </form>
-      {newButton && (
-        <NewShip newButton={newButton} setNewButton={setNewButton} />
-      )}
+
     </div>
   );
 };

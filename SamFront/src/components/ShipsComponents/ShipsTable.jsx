@@ -1,11 +1,8 @@
-import UserPlusIcon from "../../icons/UserPlusIcon";
 import ShipsTableList from "./ShipsTableList";
 import PropTypes from "prop-types";
 
 const ShipsTable = ({
   ships,
-  setNewButton,
-  newButton,
   setEditUserData,
   editButton,
   setEditButton,
@@ -29,16 +26,7 @@ const ShipsTable = ({
             <th scope="col" className="px-6 py-3">
               Matricula
             </th>
-            <td></td>
-            <td>
-              <button
-                scope="col"
-                className="px-4 py-3 border-l border-[#58aaae]"
-                onClick={() => setNewButton(!newButton)}
-              >
-                <UserPlusIcon />
-              </button>
-            </td>
+
           </tr>
         </thead>
         <tbody>
