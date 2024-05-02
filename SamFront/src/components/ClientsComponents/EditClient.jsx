@@ -3,6 +3,7 @@ import { updateClient } from "../../services/clients.service";
 import { getShipsByClientId } from "../../services/ship.service";
 import { useEffect, useState } from "react";
 import ShipsTable from "../ShipsComponents/ShipsTable";
+import NewShip from "../ShipsComponents/NewShip";
 //import { useContext } from "react";
 //import {EditUserContext} from '../context/userContext'
 
@@ -10,7 +11,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
   //const { editUser, setEditUser } = useContext(EditUserContext);
 
   const [ships, setShips] = useState([]);
-  //const [newButton, setNewButton] = useState(false);
+  const [newButton, setNewButton] = useState(false);
   const [deleteButton, setDeleteButton] = useState(false);
   //const [searchValue, setSearchValue] = useState("");
 
@@ -21,7 +22,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
     };
 
     fetchAllShips();
-  }, [deleteButton]);
+  }, [deleteButton, newButton]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -57,13 +58,18 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-screen">
+    <div className="flex flex-col justify-center items-center h-screen w-screen ">
+      
       <form
-        className="w-full max-w-xl rounded-lg p-5 border border-[#58aaae] bg-[#242529]"
+        className="w-full max-w-2xl rounded-lg pl-5 pr-5 pb-5 border border-[#58aaae] bg-[#242529]"
         onSubmit={handleSubmit}
       >
-        <div className="grid md:grid-cols-2 md:gap-6 pb-5">
-          <div className="mb-0">
+        <div className="grid grid-cols-2 grid-rows-[5px] gap-0 lg:mt-3 pl-5">
+            <div className="col-start-3 row-start-1">
+              <p>{editUserData.id}</p>
+            </div>
+          <div className="col-start-1 row-start-2 mr-5">
+          <div className="mb-4">
             <label
               htmlFor="address"
               className="block mb-2 text-sm font-medium text-white"
@@ -81,25 +87,9 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
             />
           </div>
 
-          <div className="mb-0">
-            <label
-              htmlFor="id"
-              className="block mb-2 text-sm font-medium text-white"
-            >
-              ID
-            </label>
-            <input
-              type="text"
-              id="id"
-              readOnly
-              defaultValue={editUserData.id}
-              style={{ backgroundColor: "#21212d" }}
-              className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-              required
-            />
-          </div>
+          
 
-          <div className="mb-0">
+          <div className="mb-4">
             <label
               htmlFor="name"
               className="block mb-2 text-sm font-medium text-white"
@@ -117,7 +107,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
             />
           </div>
 
-          <div className="mb-0">
+          <div className="mb-4">
             <label
               htmlFor="surName"
               className="block mb-2 text-sm font-medium text-white"
@@ -134,8 +124,10 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
               required
             />
           </div>
+          </div>
 
-          <div className="mb-0">
+          <div className="col-start-2 row-start-2">
+          <div className="mb-4">
             <label
               htmlFor="email"
               className="block mb-2 text-sm font-medium text-white"
@@ -153,7 +145,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
             />
           </div>
 
-          <div className="mb-0">
+          <div className="mb-4">
             <label
               htmlFor="telephone"
               className="block mb-2 text-sm font-medium text-white"
@@ -171,7 +163,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
             />
           </div>
 
-          <div className="mb-0">
+          <div className="mb-4">
             <label
               htmlFor="cif"
               className="block mb-2 text-sm font-medium text-white"
@@ -190,6 +182,13 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
           </div>
         </div>
 
+        </div>
+
+        <div>
+
+          
+        </div>
+        <NewShip/>
         <ShipsTable
           ships={ships}
           deleteButton={deleteButton}
@@ -215,6 +214,9 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
           </div>
         </div>
       </form>
+      {newButton && (
+        <NewShip newButton={newButton} setNewButton={setNewButton} />
+      )}
     </div>
   );
 };
