@@ -3,6 +3,7 @@ import { getClientById } from "../../services/clients.service";
 import { useEffect, useState } from "react";
 import { getShipById } from "../../services/ship.service";
 import { getUserById } from "../../services/users.service";
+import XIcon from '../../icons/XIcon'
 
 const ViewOrder = ({ view, setView, document }) => {
   const [client, setClient] = useState({});
@@ -55,14 +56,20 @@ const ViewOrder = ({ view, setView, document }) => {
   return (
     <>
       <div className="flex flex-col justify-center items-center h-screen w-screen">
-        <div className="w-full max-w-xl rounded-lg p-5 border border-[#58aaae] bg-[#242529]">
-          <p>
-            <span className="text-white text-lg font-bold">Estado: </span>{" "}
-            {document.finish ? "Finalizado" : "Pendiente"}
-          </p>
+        <div className="w-full max-w-xl rounded-lg px-5 pb-5 border border-[#58aaae] bg-[#242529]">
+          <div className="grid grid-cols-2 grid-rows-2">
+            <p className="row-start-2 col-start-1">
+              <span className="text-white text-lg font-bold">Estado: </span>{" "}
+              {document.finish ? "Finalizado" : "Pendiente"}
+            </p> 
+        <button className="justify-self-end row-start-1 col-start-2 mt-2" onClick={handleClick}>
+            <XIcon/>
+          </button>
+          </div>
+         
           <div className="grid grid-cols-2 rounded-lg grid-rows-[15px] gap-5 bg-[#21212d] border border-[#58aaae] p-5">
             <h1 className="col-start-1 row-start-1 text-white text-lg font-bold">
-              Datos de Cliente
+              Datos de Cliente:
             </h1>
             <div className="col-start-2 row-start-1 text-white justify-self-end">
               {document.id}
@@ -123,12 +130,14 @@ const ViewOrder = ({ view, setView, document }) => {
             </p>
             <p className="col-start-2 row-start-2 text-white">
               <p className="font-bold">Cita:</p> {formattedDate}{" "}
-             <p><span className="font-bold">Horas: </span>{document.hours}</p> 
+              <p>
+                <span className="font-bold">Horas: </span>
+                {document.hours}
+              </p>
             </p>
           </div>
         </div>
       </div>
-      <button onClick={handleClick}>botón</button>
     </>
   );
 };
