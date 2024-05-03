@@ -58,7 +58,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-screen ">
+    <div className="flex flex-col justify-center items-center h-screen w-screen">
       
       <form
         className="w-full max-w-2xl rounded-lg pl-5 pr-5 pb-5 border border-[#58aaae] bg-[#242529]"

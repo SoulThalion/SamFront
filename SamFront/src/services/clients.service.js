@@ -16,6 +16,26 @@ export const getAllClients = async () => {
     }
 }
 
+export const getClientById = async (id) => {
+    const token = localStorage.getItem('token');
+    const ide = id
+    try {
+        const { data } = await app.get(`/client/${ide}`, {
+            headers: {
+                token: token // Incluir el token en el encabezado de autorización
+            }
+        });
+
+
+        return data
+
+    } catch (error) {
+        console.error('Error al borrar el usuario:', error);
+        throw error; // Propagar el error para que pueda ser manejado por el código que llama a esta función
+    }
+};
+
+
 export const createClient = async (address, name, surName, telephone, email, cif) => {
     const token = localStorage.getItem('token');
 

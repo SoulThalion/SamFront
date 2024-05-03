@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { getAllOrders } from "../services/orders.service";
-import UsersTable from '../components/OdersComponents/UsersTable.jsx'
-import NewUser from '../components/OdersComponents/NewUser.jsx'
-import EditUser from '../components/OdersComponents/EditOrder.jsx'
-import SearchBar from '../components/OdersComponents/SearchBar.jsx'
+import UsersTable from "../components/OdersComponents/UsersTable.jsx";
+import NewUser from "../components/OdersComponents/NewUser.jsx";
+import EditUser from "../components/OdersComponents/EditOrder.jsx";
+import SearchBar from "../components/OdersComponents/SearchBar.jsx";
+import ViewOrder from "../components/OdersComponents/ViewOrder.jsx";
 
 const Orders = () => {
   const [users, setUsers] = useState([]);
@@ -12,6 +13,8 @@ const Orders = () => {
   const [deleteButton, setDeleteButton] = useState(false);
   const [editUserData, setEditUserData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [view, setView] = useState(false);
+  const [document, setDocument] = useState({})
 
   useEffect(() => {
     const fetchAllUsers = async () => {
@@ -34,7 +37,6 @@ const Orders = () => {
     });
   });
 
-  console.log(filteredUsers);
   return (
     <div className="text-white bg-[#1c1d20] relative">
       <div className="flex justify-center items-center h-screen text-white">
@@ -85,6 +87,10 @@ const Orders = () => {
                 editButton={editButton}
                 deleteButton={deleteButton}
                 setDeleteButton={setDeleteButton}
+                view={view}
+                setView={setView}
+                document={document}
+                setDocument={setDocument}
               />
             </div>
           </div>
@@ -96,6 +102,11 @@ const Orders = () => {
           )}
         </div>
       </div>
+      {view && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+          <ViewOrder view={view} setView={setView} document={document}/>
+        </div>
+      )}
     </div>
   );
 };

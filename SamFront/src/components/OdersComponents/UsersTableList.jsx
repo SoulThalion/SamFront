@@ -8,8 +8,11 @@ const UsersTableList = ({
   editButton,
   deleteButton,
   setDeleteButton,
+  view,
+  setView,
+  document,
+  setDocument
 }) => {
-  
   const formattedUsers = filteredUsers.map((filteredUsers) => (
     <tr
       key={filteredUsers.id}
@@ -23,12 +26,17 @@ const UsersTableList = ({
         finish={filteredUsers.finish}
         userId={filteredUsers.userId}
         shipId={filteredUsers.shipId}
+        clientId={filteredUsers.clientId}
         observations={filteredUsers.observations}
         setEditUserData={setEditUserData}
         setEditButton={setEditButton}
         editButton={editButton}
         deleteButton={deleteButton}
         setDeleteButton={setDeleteButton}
+        view={view}
+        setView={setView}
+        document={document}
+        setDocument={setDocument}
       />
     </tr>
   ));
