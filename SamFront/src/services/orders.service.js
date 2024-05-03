@@ -1,9 +1,9 @@
 import app from './config'
 
-export const getAllUsers = async () => {
+export const getAllOrders = async () => {
     const token = localStorage.getItem('token');
     try {
-        const { data } = await app.get('/user', {
+        const { data } = await app.get('/order', {
             headers: {
                 token: token
             }
@@ -16,83 +16,76 @@ export const getAllUsers = async () => {
     }
 }
 
-export const createUser = async (userName, name, surName, telephone, email, password, role) => {
+export const createClient = async (address, name, surName, telephone, email, cif) => {
     const token = localStorage.getItem('token');
 
     try {
         // Realizar la solicitud POST para crear un nuevo usuario
-        const { data } = await app.post('/user', {
-            userName: userName,
+        const { data } = await app.post('/client', {
+            address: address,
             name: name,
             surName: surName,
             telephone: telephone,
             email: email,
-            password: password,
-            role: role
+            cif: cif
         }, {
             headers: {
                 token: token // Incluir el token en el encabezado de autorización
             }
         });
 
-        return data; // Devolver los datos del nuevo usuario creado
+        return data; // Devolver los datos del nuevo cliente creado
 
     } catch (error) {
-        console.error('Error al crear el usuario:', error);
+        console.error('Error al crear el cliente:', error);
         throw error; // Propagar el error para que pueda ser manejado por el código que llama a esta función
     }
 };
 
-export const updateUser = async (id, userName, name, surName, telephone, email, password, role) => {
+export const updateClient = async (id, address, name, surName, telephone, email, cif) => {
     const token = localStorage.getItem('token');
 
     try {
-        // Realizar la solicitud PATCH para editar un nuevo usuario
+        // Realizar la solicitud PATCH para editar un nuevo cliente
         const userData = {
-            userName: userName,
+            address: address,
             name: name,
             surName: surName,
             telephone: telephone,
             email: email,
-            role: role
+            cif: cif
         };
-    
-        // Añadir la contraseña al objeto userData solo si no está vacía
-        if (password !== '') {
-            userData.password = password;
-        }
-    
-        const { data } = await app.patch(`/user/${id}`, userData, {
+
+        const { data } = await app.patch(`/client/${id}`, userData, {
             headers: {
                 token: token // Incluir el token en el encabezado de autorización
             }
         });
 
-    return data; // Devolver los datos del usuario editado
+    return data; // Devolver los datos del cliente editado
 
 } catch (error) {
-    console.error('Error al crear el usuario:', error);
+    console.error('Error al crear el cliente:', error);
     throw error; // Propagar el error para que pueda ser manejado por el código que llama a esta función
 }
 };
 
-export const deleteUser = async (id) => {
+export const deleteClient = async (id) => {
     const token = localStorage.getItem('token');
     console.log(id)
     const ide= id
     try {   
-        await app.delete(`/user/${ide}`, {
+        await app.delete(`/client/${ide}`, {
             headers: {
                 token: token // Incluir el token en el encabezado de autorización
             }
         });
         
 
-    return "User deleted"
+    return "Client deleted"
 
 } catch (error) {
-    console.error('Error al borrar el usuario:', error);
+    console.error('Error al borrar el cliente:', error);
     throw error; // Propagar el error para que pueda ser manejado por el código que llama a esta función
 }
 };
-

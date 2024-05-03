@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { getAllUsers } from "../services/users.service";
-import UsersTable from "../components/UsersComponents/UsersTable";
-import NewUser from "../components/UsersComponents/NewUser";
-import EditUser from '../components/UsersComponents/EditUser.jsx'
-import SearchBar from "../components/UsersComponents/SearchBar";
+import { getAllOrders } from "../services/orders.service";
+import UsersTable from '../components/OdersComponents/UsersTable.jsx'
+import NewUser from '../components/OdersComponents/NewUser.jsx'
+import EditUser from '../components/OdersComponents/EditOrder.jsx'
+import SearchBar from '../components/OdersComponents/SearchBar.jsx'
 
-const Users = () => {
+const Orders = () => {
   const [users, setUsers] = useState([]);
   const [newButton, setNewButton] = useState(false);
   const [editButton, setEditButton] = useState(false);
@@ -15,7 +15,7 @@ const Users = () => {
 
   useEffect(() => {
     const fetchAllUsers = async () => {
-      const data = await getAllUsers();
+      const data = await getAllOrders();
       setUsers(data);
     };
 
@@ -91,7 +91,7 @@ const Users = () => {
 
           {!newButton && !editButton && (
             <h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">
-              Usuarios
+              Ordenes
             </h1>
           )}
         </div>
@@ -100,4 +100,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Orders;

@@ -4,6 +4,7 @@ import Login from '../pages/Login'
 import Home from "../pages/Home";
 import Users from "../pages/Users";
 import Clients from "../pages/Clients";
+import Orders from "../pages/Orders";
 
 const isAuthenticated = () => !localStorage.getItem('token') ? redirect("/login") : null
 const isNotAuthenticated = () => localStorage.getItem('token') ? redirect("/") : null
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
       {
         path: '/clients',
         element: <Clients/>,
+        loader: isAuthenticated,
+      },
+      {
+        path: '/orders',
+        element: <Orders/>,
         loader: isAuthenticated,
       },
 ]}
