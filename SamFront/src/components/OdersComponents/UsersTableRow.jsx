@@ -30,11 +30,10 @@ const UsersTableRow = ({
 }) => {
   //const { editUser, setEditUser } = useContext(EditUserContext);
 
-  const [state, setState] = useState("");
+ 
   const [formattedDate, setFormattedDate] = useState("");
 
   useEffect(() => {
-    finish ? setState("Finalizado") : setState("Pendiente");
     const fechaFormateada = formatDate(appointment);
     setFormattedDate(fechaFormateada);
 
@@ -116,7 +115,7 @@ const UsersTableRow = ({
         <div className="max-h-5 overflow-y-auto">{work}</div>
       </td>
       <td className="px-6 py-4">{hours}</td>
-      <td className="px-6 py-4">{state}</td>
+      <td className="px-6 py-4">{finish ? "Finalizado" : "Pendiente"}</td>
       <td className="px-6 py-4">{userId}</td>
       <td className="px-6 py-4 max-w-[250px]">
         <div className="max-h-5 overflow-y-auto">{observations}</div>
@@ -135,12 +134,14 @@ const UsersTableRow = ({
           onClick={() => {
             setEditUserData({
               id: id,
-              userName: userName,
-              name: name,
-              surName: surName,
-              telephone: telephone,
-              email: email,
-              role: role,
+              appointment: appointment,
+              work: work,
+              hours: hours,
+              userId: userId,
+              shipId: shipId,
+              clientId: clientId,
+              observations: observations,
+              finish: finish
             });
 
             setEditButton(!editButton);

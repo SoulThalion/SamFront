@@ -1,13 +1,12 @@
 import PropTypes from "prop-types";
 import { createOrder } from "../../services/orders.service";
-import {useState, useEffect} from 'react'
-import {getShipsByClientId}  from "../../services/ship.service";
+import { useState, useEffect } from "react";
+import { getShipsByClientId } from "../../services/ship.service";
 
-const NewUser = ({setNewButton, newButton}) => {
-
-  const [clientId, setClientId] = useState()
+const NewUser = ({ setNewButton, newButton }) => {
+  const [clientId, setClientId] = useState();
   const [ships, setShips] = useState([]);
-console.log(ships)
+  console.log(ships);
   const handleOnChange = (event) => {
     const text = event.target.value;
     setClientId(text);
@@ -22,36 +21,38 @@ console.log(ships)
     fetchAllShips();
   }, [clientId]);
 
-  console.log(clientId)
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-    
-        const work = event.target.work.value;
-        const shipId = event.target.shipId.value;
-        const clientId = event.target.clientId.value;
-    
-        try {
-            const newUser = await createOrder(work, shipId, clientId);
-            console.log('Orden creada:', newUser);
-            window.alert("Orden creada")
-            setNewButton(!newButton)
-    
-            // Limpiar el formulario o realizar otras acciones después de crear el usuario
-        } catch (error) {
-            console.error('Error al crear la orden:', error);
-            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
-        }
-    };
+    const work = event.target.work.value;
+    const shipId = event.target.shipId.value;
+    const clientId = event.target.clientId.value;
 
-    const formattedShips = ships.map((ship) => (
-      <option key={ship.id} value={ship.id}>{ship.id} {ship.brand} {ship.model} {ship.registration_number}</option>
-    ));
-    
+    try {
+      const newUser = await createOrder(work, shipId, clientId);
+      console.log("Orden creada:", newUser);
+      window.alert("Orden creada");
+      setNewButton(!newButton);
+
+      // Limpiar el formulario o realizar otras acciones después de crear el usuario
+    } catch (error) {
+      console.error("Error al crear la orden:", error);
+      // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+    }
+  };
+
+  const formattedShips = ships.map((ship) => (
+    <option key={ship.id} value={ship.id}>
+      {ship.id} {ship.brand} {ship.model} {ship.registration_number}
+    </option>
+  ));
 
   return (
     <div className="flex flex-col justify-center items-center h-screen w-screen">
-      <form className="w-full max-w-md rounded-lg p-5 border border-[#58aaae] bg-[#242529]" onSubmit={handleSubmit}>
+      <form
+        className="w-full max-w-md rounded-lg p-5 border border-[#58aaae] bg-[#242529]"
+        onSubmit={handleSubmit}
+      >
         <div className="">
           <div className="mb-4">
             <label
@@ -95,7 +96,7 @@ console.log(ships)
               htmlFor="work"
               className="block mb-2 text-sm font-medium text-white"
             >
-              Nombre
+              Trabajo a realizar
             </label>
             <input
               type="text"
@@ -108,24 +109,23 @@ console.log(ships)
           </div>
         </div>
 
-        
         <div className="flex justify-center">
-        <div className="grid md:grid-cols-2 md:gap-14 pt-5 mt-2 border-t border-[#58aaae]">
-          <button
-            type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 text-center"
-          >
-            Registrar
-          </button>
+          <div className="grid md:grid-cols-2 md:gap-14 pt-5 mt-2 border-t border-[#58aaae]">
+            <button
+              type="submit"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 text-center"
+            >
+              Registrar
+            </button>
 
-          <button
-            type="button"
-            onClick={()=> setNewButton(!newButton)}
-            className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 text-center"
-          >
-            Cancelar
-          </button>
-        </div>
+            <button
+              type="button"
+              onClick={() => setNewButton(!newButton)}
+              className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 text-center"
+            >
+              Cancelar
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -135,7 +135,7 @@ console.log(ships)
 NewUser.propTypes = {
   users: PropTypes.array,
   setNewButton: PropTypes.func,
-  newButton: PropTypes.bool
+  newButton: PropTypes.bool,
 };
 
 export default NewUser;

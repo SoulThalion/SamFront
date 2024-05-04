@@ -11,8 +11,6 @@ const ViewOrder = ({ view, setView, document }) => {
   const [mechanic, setMechanic] = useState({});
   const [formattedDate, setFormattedDate] = useState("");
 
-  console.log(document);
-
   useEffect(() => {
     const fetchClient = async () => {
       const data = await getClientById(document.clientId);
@@ -42,6 +40,12 @@ const ViewOrder = ({ view, setView, document }) => {
   };
 
   const formatDate = (dateString) => {
+    // Verificar si la cadena de fecha está vacía
+    if (!dateString) {
+      return null; // o puedes devolver una cadena vacía: return "";
+    }
+  
+    // Continuar formateando la fecha si la cadena no está vacía
     const date = new Date(dateString);
     const day = String(date.getUTCDate()).padStart(2, "0");
     const month = String(date.getUTCMonth() + 1).padStart(2, "0");
@@ -52,6 +56,7 @@ const ViewOrder = ({ view, setView, document }) => {
     const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
     return formattedDate;
   };
+  
 
   return (
     <>

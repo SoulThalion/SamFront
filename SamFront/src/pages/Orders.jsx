@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllOrders } from "../services/orders.service";
 import UsersTable from "../components/OdersComponents/UsersTable.jsx";
 import NewUser from "../components/OdersComponents/NewUser.jsx";
-import EditUser from "../components/OdersComponents/EditOrder.jsx";
+import EditOrder from "../components/OdersComponents/EditOrder.jsx";
 import SearchBar from "../components/OdersComponents/SearchBar.jsx";
 import ViewOrder from "../components/OdersComponents/ViewOrder.jsx";
 
@@ -45,7 +45,7 @@ const Orders = () => {
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center">
             <NewUser setNewButton={setNewButton} newButton={newButton} />
             <h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">
-              Nuevo Usuario
+              Nueva Orden
             </h1>
           </div>
         )}
@@ -53,13 +53,14 @@ const Orders = () => {
         {/* EditUser */}
         {editButton && (
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center">
-            <EditUser
+            <EditOrder
               editUserData={editUserData}
+              setEditUserData={setEditUserData}
               setEditButton={setEditButton}
               editButton={editButton}
             />
             <h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">
-              Editar Usuario
+              Editar Orden
             </h1>
           </div>
         )}

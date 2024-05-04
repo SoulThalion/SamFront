@@ -1,38 +1,108 @@
 import PropTypes from "prop-types";
-import { updateUser } from "../../services/users.service";
-//import { useContext } from "react";
+import { updateOrder } from "../../services/orders.service";
+import { useState, useEffect } from "react";
+import { getShipsByClientId, getShipById } from "../../services/ship.service";
+import app from "../../services/config";
 //import {EditUserContext} from '../context/userContext'
 
-const EditUser = ({ editUserData, editButton, setEditButton }) => {
+const EditOrder = ({
+  editUserData,
+  setEditUserData,
+  editButton,
+  setEditButton,
+}) => {
   //const { editUser, setEditUser } = useContext(EditUserContext);
+  const [formattedDate, setFormattedDate] = useState("");
+  const [ships, setShips] = useState([]);
+  const [ship, setShip] = useState({});
+
+  useEffect(() => {
+    const fetchAllShips = async () => {
+      const data = await getShipsByClientId(editUserData.clientId);
+      setShips(data);
+    };
+
+    const fetchShip = async () => {
+      const data = await getShipById(editUserData.shipId);
+      setShip(data);
+    };
+
+    const fechaFormateada = formatDate(editUserData.appointment);
+    setFormattedDate(fechaFormateada);
+
+    fetchAllShips();
+    fetchShip();
+  }, []);
+
+  const formatDate = (dateString) => {
+    // Verificar si la cadena de fecha está vacía
+    if (!dateString) {
+      return null; // o puedes devolver una cadena vacía: return "";
+    }
+
+    // Continuar formateando la fecha si la cadena no está vacía
+    const date = new Date(dateString);
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    const year = date.getUTCFullYear();
+    const hours = String(date.getUTCHours()).padStart(2, "0");
+    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+    const seconds = String(date.getUTCSeconds()).padStart(2, "0");
+    const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    return formattedDate;
+  };
+
+  const toISO8601 = (dateString) => {
+    // Verificar si la cadena de fecha está vacía
+    if (!dateString) {
+      return null; // o puedes devolver una cadena vacía: return "";
+    }
+
+    // Continuar formateando la fecha si la cadena no está vacía
+    const date = new Date(dateString);
+    const isoString = date.toISOString();
+    return isoString;
+};
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const id = event.target.id.value;
-    const userName = event.target.userName.value;
-    const name = event.target.name.value;
-    const surName = event.target.surName.value;
-    const telephone = event.target.telephone.value;
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-    const role = event.target.role.value;
+    const id = editUserData.id;
+    const date = event.target.appointment.value;
+    const work = event.target.work.value;
+    const hours = event.target.hours.value;
+    const finish = event.target.finish.value;
+    const shipId = event.target.shipId.value;
+    const userId = event.target.userId.value;
+    const observations = event.target.observations.value;
+
+    const appointment = toISO8601(date);
+
+    setEditUserData({
+      id,
+      appointment,
+      work,
+      hours,
+      finish,
+      shipId,
+      userId,
+      observations,
+    });
 
     try {
-      
-        const update = await updateUser(
-          id,
-          userName,
-          name,
-          surName,
-          telephone,
-          email,
-          password,
-          role
-        );
-      
-        window.alert("Usuario Editado")
-        setEditButton(!editButton)
+      const update = await updateOrder(
+        id,
+        appointment,
+        work,
+        hours,
+        finish,
+        shipId,
+        userId,
+        observations
+      );
+
+      window.alert("Usuario Editado");
+      setEditButton(!editButton);
       console.log("Usuario editado:", update);
 
       // Limpiar el formulario o realizar otras acciones después de crear el usuario
@@ -42,160 +112,146 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
     }
   };
 
+  const formattedShips = ships.map((ship) => (
+    <option key={ship.id} value={ship.id}>
+      {ship.id} {ship.brand} {ship.model} {ship.registration_number}
+    </option>
+  ));
+
   return (
     <div className="flex flex-col justify-center items-center h-screen w-screen">
-      
       <form
-        className="w-full max-w-md rounded-lg p-5 border border-[#58aaae] bg-[#242529]"
+        className="w-full max-w-md rounded-lg px-5 pb-5 pt-2 border border-[#58aaae] bg-[#242529]"
         onSubmit={handleSubmit}
       >
-      
-    
-        <div className="grid md:grid-cols-2 md:gap-6">
-          <div className="mb-0">
+        <div className="grid md:grid-cols-2 md:gap-6 grid-row[10px]">
+          <div className="mb-0 col-start-1 row-start-2">
             <label
-              htmlFor="userName"
+              htmlFor="userId"
               className="block mb-2 text-sm font-medium text-white"
             >
-              Nombre de Usuario
+              Mecánico
             </label>
             <input
               type="text"
-              id="userName"
-              defaultValue={editUserData.userName}
+              id="userId"
+              defaultValue={editUserData.userId}
               style={{ backgroundColor: "#21212d" }}
               className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-              placeholder="nombre"
-              required
             />
           </div>
 
-          <div className="mb-0">
-            <label
-              htmlFor="id"
-              className="block mb-2 text-sm font-medium text-white"
-            >
-              ID
-            </label>
-            <input
-              type="text"
-              id="id"
-              readOnly
-              defaultValue={editUserData.id}
-              style={{ backgroundColor: "#21212d" }}
-              className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-
-              required
-            />
+          <div className="col-start-2 row-start-1 text-white justify-self-end">
+            {editUserData.id}
           </div>
 
-          <div className="mb-0">
+          <div className="mb-0 col-start-2 row-start-2">
             <label
-              htmlFor="password"
+              htmlFor="appointment"
               className="block mb-2 text-sm font-medium text-white"
             >
-              Contraseña
+              Cita
             </label>
             <div className="relative">
               <span className="inline-flex absolute inset-y-5 end-0 items-center px-3 text-sm text-gray-900 rounded-s-md"></span>
             </div>
             <input
               type="text"
-              id="password"
+              id="appointment"
               style={{ backgroundColor: "#21212d" }}
               className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-              placeholder="contraseña"
+              defaultValue={formattedDate}
             />
           </div>
 
-          <div className="mb-0">
+          <div className="mb-0 col-start-1 row-start-3">
             <label
-              htmlFor="name"
+              htmlFor="work"
               className="block mb-2 text-sm font-medium text-white"
             >
-              Nombre
+              Trabajo a realizar
             </label>
             <input
               type="text"
-              id="name"
-              defaultValue={editUserData.name}
+              id="work"
               style={{ backgroundColor: "#21212d" }}
+              defaultValue={editUserData.work}
               className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-              placeholder="nombre"
               required
             />
           </div>
 
-          <div className="mb-0">
+          <div className="mb-0 col-start-2 row-start-3">
             <label
-              htmlFor="surName"
+              htmlFor="observations"
               className="block mb-2 text-sm font-medium text-white"
             >
-              Apellidos
+              Observaciones
             </label>
             <input
               type="text"
-              id="surName"
-              defaultValue={editUserData.surName}
+              id="observations"
+              defaultValue={editUserData.observations}
               style={{ backgroundColor: "#21212d" }}
               className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="apellidos"
-              required
             />
           </div>
 
-          <div className="mb-0">
+          <div className="mb-0 col-start-1 row-start-4">
             <label
-              htmlFor="email"
+              htmlFor="hours"
               className="block mb-2 text-sm font-medium text-white"
             >
-              Email
+              Horas
             </label>
             <input
               type="text"
-              id="email"
-              defaultValue={editUserData.email}
+              id="hours"
+              defaultValue={editUserData.hours}
               style={{ backgroundColor: "#21212d" }}
               className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-              placeholder="email"
+              placeholder="hours"
               required
             />
           </div>
 
-          <div className="mb-0">
+          <div className="mb-0 col-start-2 row-start-5">
             <label
-              htmlFor="telephone"
+              htmlFor="finish"
               className="block mb-2 text-sm font-medium text-white"
             >
-              Teléfono
-            </label>
-            <input
-              type="text"
-              id="telephone"
-              defaultValue={editUserData.telephone}
-              style={{ backgroundColor: "#21212d" }}
-              className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-              placeholder="teléfono"
-              required
-            />
-          </div>
-
-          <div className="mb-0">
-            <label
-              htmlFor="role"
-              className="block mb-2 text-sm font-medium text-white"
-            >
-              Rol
+              Estado
             </label>
             <select
-              id="role"
-              defaultValue={editUserData.role}
+              id="finish"
               className="bg-[#21212d] border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               required
             >
-              <option value="mechanic">Mecánico</option>
-              <option value="manager">Gestor</option>
-              <option value="admin">Administrador</option>
+              <option value={editUserData.finish ? "true" : "false"} selected>
+                {editUserData.finish ? "Finalizado" : "Pendiente"}
+              </option>
+              <option value={editUserData.finish ? "false" : "true"}>{editUserData.finish ? "Pendiente" : "Finalizado"}</option>
+            </select>
+          </div>
+
+          <div className="mb-0 col-start-1 row-start-5">
+            <label
+              htmlFor="shipId"
+              className="block mb-2 text-sm font-medium text-white"
+            >
+              Barco
+            </label>
+            <select
+              id="shipId"
+              defaultValue={editUserData.shipId}
+              className="bg-[#21212d] border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              required
+            >
+              <option value={editUserData.shipId} selected>
+                {ship.id} {ship.brand} {ship.model} {ship.registration_number}
+              </option>
+              {formattedShips}
             </select>
           </div>
         </div>
@@ -211,7 +267,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
 
             <button
               type="button"
-              onClick={()=> setEditButton(!editButton)}
+              onClick={() => setEditButton(!editButton)}
               className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 text-center"
             >
               Cancelar
@@ -223,11 +279,11 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
   );
 };
 
-EditUser.propTypes = {
+EditOrder.propTypes = {
   users: PropTypes.array,
   editUserData: PropTypes.array,
   editButton: PropTypes.bool,
-  setEditButton: PropTypes.func
+  setEditButton: PropTypes.func,
 };
 
-export default EditUser;
+export default EditOrder;
