@@ -70,22 +70,22 @@ export const updateClient = async (id, address, name, surName, telephone, email,
 }
 };
 
-export const deleteClient = async (id) => {
+export const deleteOrder = async (id) => {
     const token = localStorage.getItem('token');
     console.log(id)
     const ide= id
     try {   
-        await app.delete(`/client/${ide}`, {
+        await app.delete(`/order/${ide}`, {
             headers: {
                 token: token // Incluir el token en el encabezado de autorización
             }
         });
         
 
-    return "Client deleted"
+    return "Order deleted"
 
 } catch (error) {
-    console.error('Error al borrar el cliente:', error);
+    console.error('Error al borrar el orden:', error);
     throw error; // Propagar el error para que pueda ser manejado por el código que llama a esta función
 }
 };

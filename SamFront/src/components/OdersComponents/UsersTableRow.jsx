@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import EditIcon from "../../icons/EditIcon";
 import DeleteIcon from "../../icons/DeleteIcon";
 import DocumentIcon from "../../icons/DocumentIcon";
-import { deleteUser } from "../../services/users.service";
+import { deleteOrder } from "../../services/orders.service";
 
 import { useEffect, useState } from "react";
 //import { useContext } from 'react';
@@ -72,22 +72,22 @@ const UsersTableRow = ({
 
     // Mostrar el cuadro de diálogo de confirmación
     const confirmation = window.confirm(
-      "¿Estás seguro de que deseas eliminar este usuario?"
+      "¿Estás seguro de que deseas eliminar esta orden?"
     );
 
     // Si el usuario confirma la eliminación
     if (confirmation) {
       try {
-        const update = await deleteUser(id);
+        const update = await deleteOrder(id);
 
         setDeleteButton(!deleteButton);
 
         // Realizar cualquier otra acción necesaria después de eliminar el usuario
-        console.log("Usuario eliminado:", update);
+        console.log("Orden eliminada:", update);
 
         // Limpiar el formulario u otras acciones después de eliminar el usuario
       } catch (error) {
-        console.error("Error al eliminar el usuario:", error);
+        console.error("Error al eliminar la orden:", error);
         // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
       }
     } else {
