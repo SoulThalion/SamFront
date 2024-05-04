@@ -1,6 +1,5 @@
-import UserPlusIcon from "../../icons/UserPlusIcon";
+import PlusIcon from "../../icons/PlusIcon";
 import UsersTableList from "./UsersTableList";
-import ViewOrder from "./ViewOrder";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
@@ -63,8 +62,9 @@ const UsersTable = ({
               <button
                 scope="col"
                 className="px-4 py-3 border-l border-[#58aaae]"
+                onClick={() => setNewButton(!newButton)}
               >
-                <UserPlusIcon />
+                <PlusIcon />
               </button>
             </td>
           </tr>

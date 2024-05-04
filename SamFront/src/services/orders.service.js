@@ -16,18 +16,15 @@ export const getAllOrders = async () => {
     }
 }
 
-export const createClient = async (address, name, surName, telephone, email, cif) => {
+export const createOrder = async (work, shipId, clientId) => {
     const token = localStorage.getItem('token');
 
     try {
         // Realizar la solicitud POST para crear un nuevo usuario
-        const { data } = await app.post('/client', {
-            address: address,
-            name: name,
-            surName: surName,
-            telephone: telephone,
-            email: email,
-            cif: cif
+        const { data } = await app.post('/order', {
+            work: work,
+            shipId: shipId,
+            clientId: clientId
         }, {
             headers: {
                 token: token // Incluir el token en el encabezado de autorización

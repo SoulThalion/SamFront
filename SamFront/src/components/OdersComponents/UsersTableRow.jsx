@@ -37,6 +37,7 @@ const UsersTableRow = ({
     finish ? setState("Finalizado") : setState("Pendiente");
     const fechaFormateada = formatDate(appointment);
     setFormattedDate(fechaFormateada);
+
   }, []);
 
   const handleClick = () => {
@@ -56,6 +57,12 @@ const UsersTableRow = ({
 
   // Función para formatear la fecha y hora en UTC
   const formatDate = (dateString) => {
+    // Verificar si la cadena de fecha está vacía
+    if (!dateString) {
+      return null; // o puedes devolver una cadena vacía: return "";
+    }
+  
+    // Continuar formateando la fecha si la cadena no está vacía
     const date = new Date(dateString);
     const day = String(date.getUTCDate()).padStart(2, "0");
     const month = String(date.getUTCMonth() + 1).padStart(2, "0");
@@ -66,6 +73,7 @@ const UsersTableRow = ({
     const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
     return formattedDate;
   };
+  
 
   const handleDelete = async (event) => {
     event.preventDefault();
