@@ -5,8 +5,8 @@ import DocumentIcon from "../../icons/DocumentIcon";
 import { deleteOrder } from "../../services/orders.service";
 import { getClientById } from "../../services/clients.service";
 import { useEffect, useState } from "react";
-import { useContext } from 'react';
-import { UserContext } from '../../context/userContext'
+import { useContext } from "react";
+import { UserContext } from "../../context/userContext";
 
 const UsersTableRow = ({
   id,
@@ -26,14 +26,14 @@ const UsersTableRow = ({
   view,
   setView,
   document,
-  setDocument
+  setDocument,
 }) => {
   //const { editUser, setEditUser } = useContext(EditUserContext);
 
-  const { user } = useContext(UserContext)
+  const { user } = useContext(UserContext);
   const [formattedDate, setFormattedDate] = useState("");
   const [client, setClient] = useState({});
- 
+  const [isMobileView, setIsMobileView] = useState(false);
 
   useEffect(() => {
     const fechaFormateada = formatDate(appointment);
@@ -43,24 +43,33 @@ const UsersTableRow = ({
       setClient(data);
     };
 
-    fetchClient()
+    fetchClient();
 
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 768); // Considerando una anchura de 768px para determinar vista de móvil
+    };
+
+    handleResize(); // Verificar tamaño inicial
+    window.addEventListener("resize", handleResize); // Escuchar cambios de tamaño
+    return () => {
+      window.removeEventListener("resize", handleResize); // Limpiar el listener al desmontar el componente
+    };
   }, []);
 
   const handleClick = () => {
     setView(!view);
-      setDocument({
-        id: id,
-        appointment: appointment,
-        work: work,
-        hours: hours,
-        finish: finish,
-        userId: userId,
-        shipId: shipId,
-        observations: observations,
-        clientId: clientId
-      });
-}
+    setDocument({
+      id: id,
+      appointment: appointment,
+      work: work,
+      hours: hours,
+      finish: finish,
+      userId: userId,
+      shipId: shipId,
+      observations: observations,
+      clientId: clientId,
+    });
+  };
 
   // Función para formatear la fecha y hora en UTC
   const formatDate = (dateString) => {
@@ -68,19 +77,18 @@ const UsersTableRow = ({
     if (!dateString) {
       return null; // o puedes devolver una cadena vacía: return "";
     }
-  
+
     // Continuar formateando la fecha si la cadena no está vacía
     const date = new Date(dateString);
-    const day = String(date.getUTCDate()).padStart(2, "0");
-    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-    const year = date.getUTCFullYear();
-    const hours = String(date.getUTCHours()).padStart(2, "0");
-    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
-    const seconds = String(date.getUTCSeconds()).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
     const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
     return formattedDate;
   };
-  
 
   const handleDelete = async (event) => {
     event.preventDefault();
@@ -111,82 +119,114 @@ const UsersTableRow = ({
     }
   };
 
-  console.log()
+  console.log();
 
   return (
-    <>{user?.role === 'admin' || user?.role === 'manager' ? (
+    <>
+      {isMobileView ? (
         <>
-      <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
-        {id}
-      </th>
-      <td className="px-6 py-4">{clientId}</td>
-      <td className="px-6 py-4">{shipId}</td>
-      <td className="px-6 py-4">{formattedDate}</td>
-      <td className="px-6 py-4 max-w-xs">
-        <div className="max-h-5 overflow-y-auto">{work}</div>
-      </td>
-      <td className="px-6 py-4">{hours}</td>
-      <td className="px-6 py-4">{finish ? "Finalizado" : "Pendiente"}</td>
-      <td className="px-6 py-4">{userId}</td>
-      <td className="px-6 py-4 max-w-[250px]">
-        <div className="max-h-5 overflow-y-auto">{observations}</div>
-      </td>
-      
-          <td>
+          <td className="px-6 py-4 text-xl border border-[#58aaae] space-y-3">
+            {client.name} {client.surName}
+            
+            <p className="pt-3">{client.address}</p>
+            
+            <p>{client.telephone}</p>
+            
+            <p>{formattedDate}</p>
+          </td>
+
+          <td className="border border-[#58aaae]">
             <button
-              className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
+              className="px-4 py-4 ml-4 bg-[#242529] rounded-lg border border-[#58aaae]"
               onClick={handleClick}
             >
               <DocumentIcon />
-            </button>
-          </td>
-          <td>
-            <button
-              className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
-              onClick={() => {
-                setEditUserData({
-                  id: id,
-                  appointment: appointment,
-                  work: work,
-                  hours: hours,
-                  userId: userId,
-                  shipId: shipId,
-                  clientId: clientId,
-                  observations: observations,
-                  finish: finish
-                });
-                setEditButton(!editButton);
-              }}
-            >
-              <EditIcon />
-            </button>
-          </td>
-          <td>
-            <button
-              className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
-              onClick={handleDelete}
-            >
-              <DeleteIcon />
             </button>
           </td>
         </>
-      ) : 
-      <>
-      <td className="px-6 py-4">{client.name}{" "}{client.surName}</td>
-      <td className="px-6 py-4">{client.address}</td>
-      <td className="px-6 py-4">{client.telephone}</td>
-      <td className="px-6 py-4">{formattedDate}</td>
-      <td className="px-6 py-4">{hours}</td>
-      <td>
-            <button
-              className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
-              onClick={handleClick}
-            >
-              <DocumentIcon />
-            </button>
-          </td>
-      
-      </>}
+      ) : (
+        <>
+          {user?.role === "admin" || user?.role === "manager" ? (
+            <>
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium whitespace-nowrap"
+              >
+                {id}
+              </th>
+              <td className="px-6 py-4">{clientId}</td>
+              <td className="px-6 py-4">{shipId}</td>
+              <td className="px-6 py-4">{formattedDate}</td>
+              <td className="px-6 py-4 max-w-xs">
+                <div className="max-h-5 overflow-y-auto">{work}</div>
+              </td>
+              <td className="px-6 py-4">{hours}</td>
+              <td className="px-6 py-4">
+                {finish ? "Finalizado" : "Pendiente"}
+              </td>
+              <td className="px-6 py-4">{userId}</td>
+              <td className="px-6 py-4 max-w-[250px]">
+                <div className="max-h-5 overflow-y-auto">{observations}</div>
+              </td>
+              <td>
+                <button
+                  className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
+                  onClick={handleClick}
+                >
+                  <DocumentIcon />
+                </button>
+              </td>
+              <td>
+                <button
+                  className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
+                  onClick={() => {
+                    setEditUserData({
+                      id: id,
+                      appointment: appointment,
+                      work: work,
+                      hours: hours,
+                      userId: userId,
+                      shipId: shipId,
+                      clientId: clientId,
+                      observations: observations,
+                      finish: finish,
+                    });
+                    setEditButton(!editButton);
+                  }}
+                >
+                  <EditIcon />
+                </button>
+              </td>
+              <td>
+                <button
+                  className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
+                  onClick={handleDelete}
+                >
+                  <DeleteIcon />
+                </button>
+              </td>
+            </>
+          ) : (
+            <>
+              <td className="px-6 py-4">
+                {client.name} {client.surName}
+              </td>
+              <td className="px-6 py-4">{client.address}</td>
+              <td className="px-6 py-4">{client.telephone}</td>
+              <td className="px-6 py-4">{formattedDate}</td>
+              <td className="px-6 py-4">{hours}</td>
+              <td>
+                <button
+                  className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
+                  onClick={handleClick}
+                >
+                  <DocumentIcon />
+                </button>
+              </td>
+            </>
+          )}
+        </>
+      )}
     </>
   );
 };

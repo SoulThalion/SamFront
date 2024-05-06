@@ -1,7 +1,7 @@
 const DocumentIcon = () => {
   return (
     <svg
-      className="w-5 h-5"
+      className="lg:w-5 lg:h-5 w-9 h-9"
       data-slot="icon"
       fill="none"
       strokeWidth="1.5"

@@ -64,40 +64,41 @@ const ViewOrder = ({ view, setView, document }) => {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center h-screen w-screen">
+      <div className="flex flex-col justify-center items-center h-screen w-screen pt-60 lg:pt-0 text-xl lg:text-lg overflow-y-auto">
         <div className="w-full max-w-xl rounded-lg px-5 pb-5 border border-[#58aaae] bg-[#242529]">
           <div className="grid grid-cols-2 grid-rows-2">
             <p className="row-start-2 col-start-1">
-              <span className="text-white text-lg font-bold">Estado: </span>{" "}
+              <span className="text-white text-xl font-bold">Estado: </span>{" "}
               {document.finish ? "Finalizado" : "Pendiente"}
             </p>
             <button
-              className="justify-self-end row-start-1 col-start-2 mt-2"
+              className="justify-self-end row-start-2 lg:row-start-1 col-start-2 mt-2"
               onClick={handleClick}
             >
               <XIcon />
             </button>
           </div>
 
-          <div className="grid grid-cols-2 rounded-lg grid-rows-[15px] gap-5 bg-[#21212d] border border-[#58aaae] p-5">
+          <div className="grid grid-cols-2 rounded-lg lg:grid-rows-[15px] gap-0 bg-[#21212d] border-x border-t border-[#58aaae] p-5">
             <h1 className="col-start-1 row-start-1 text-white text-lg font-bold">
               Datos de Cliente:
             </h1>
             <div className="col-start-2 row-start-1 text-white justify-self-end">
               {document.id}
-            </div>
-            <p className="col-start-1 row-start-2 text-white">
+            </div></div>
+            <div className="lg:grid lg:grid-cols-2 rounded-lg lg:grid-rows-[15px] gap-5 bg-[#21212d] border-x border-b border-[#58aaae] lg:p-5 px-5 pb-5">
+            <p className="lg:col-start-1 lg:row-start-2 text-white lg:pb-0 pb-1">
               <span className="font-bold">Nombre:</span> {client.name}{" "}
               {client.surName}
             </p>
-            <p>
+            <p className="lg:pb-0 pb-1">
               <span className="font-bold">CIF:</span> {client.cif}
             </p>
 
-            <p>
+            <p className="lg:pb-0 pb-1">
               <span className="font-bold">Teléfono:</span> {client.telephone}
             </p>
-            <p className="col-start-2 row-start-2 text-white">
+            <p className="lg:col-start-2 lg:row-start-2 text-white lg:pb-0 pb-1">
               <span className="font-bold">Dirección:</span> {client.address}
             </p>
             <p>
@@ -105,35 +106,36 @@ const ViewOrder = ({ view, setView, document }) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-3 rounded-lg grid-rows-[15px] gap-5 bg-[#21212d] border border-[#58aaae] mt-5 p-5">
+          <div className="grid grid-cols-3 rounded-lg grid-rows-[15px] gap-5 bg-[#21212d] border-x border-t border-[#58aaae] mt-5 p-5">
             <h1 className="col-start-1 row-start-1 text-white text-lg font-bold">
               Barco:
             </h1>
-            <div className="col-start-3 row-start-1 text-white justify-self-end">
+            <div className="col-start-3 lg:row-start-1 text-white justify-self-end">
               {document.shipId}
-            </div>
-            <p className="col-start-1 row-start-2 text-white">
+            </div></div>
+            <div className="lg:grid lg:grid-cols-3 rounded-lg grid-rows-[15px] gap-5 bg-[#21212d] border-x border-b border-[#58aaae] px-5 pb-5">
+            <p className="lg:col-start-1 lg:row-start-2 text-white mb-2 lg:mb-0">
               <span className="font-bold">Marca:</span> {ship.brand}{" "}
             </p>
-            <p className="col-start-2 row-start-2 text-white">
+            <p className="lg:col-start-2 lg:row-start-2 text-white mb-2 lg:mb-0">
               <span className="font-bold">Modelo:</span> {ship.model}
             </p>
-            <p className="col-start-3 row-start-2 text-white">
+            <p className="lg:col-start-3 lg:row-start-2 text-white">
               <span className="font-bold">Matricula:</span>{" "}
               {ship.registration_number}
             </p>
           </div>
 
-          <div className="grid grid-cols-2 rounded-lg gap-5 bg-[#21212d] border border-[#58aaae] mt-5 p-5">
-            <div className="rounded-lg bg-[#21212d] border border-[#58aaae] p-5">
-              <h1 className=" text-white text-lg font-bold">
+          <div className="lg:grid lg:grid-cols-2 rounded-lg gap-5 bg-[#21212d] border border-[#58aaae] mt-5 p-5">
+            <div className="rounded-lg bg-[#21212d] border border-[#58aaae] p-5 mb-5 lg:mb-0">
+              <h1 className=" text-white text-lg font-bold mb-2 lg:mb-0">
                 Trabajo a realizar:
               </h1>
               <p className=" text-white">{document.work}</p>
             </div>
 
-            <div className="rounded-lg bg-[#21212d] border border-[#58aaae] p-5">
-              <h1 className=" text-white text-lg font-bold">Observaciones:</h1>
+            <div className="rounded-lg bg-[#21212d] border border-[#58aaae] p-5 mb-5 lg:mb-0">
+              <h1 className=" text-white text-lg font-bold mb-2 lg:mb-0">Observaciones:</h1>
               <p className=" text-white">{document.observations}</p>
             </div>
             {mechanic ? (
@@ -152,11 +154,11 @@ const ViewOrder = ({ view, setView, document }) => {
               </>
             ) : (
               <>
-                <p className="col-start-1 row-start-2 text-white">
+                <p className="lg:col-start-1 lg:row-start-2 text-white mb-2 lg:mb-0">
                   <p className="font-bold">Cita:</p> {formattedDate}
                 </p>
-
-                <p className="col-start-2 row-start-2 text-white">
+<hr />
+                <p className="lg:col-start-2 lg:row-start-2 text-white mt-2 lg:mt-0">
                   <p className="font-bold">Horas:</p> {document.hours}
                 </p>
               </>

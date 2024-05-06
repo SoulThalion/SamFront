@@ -41,12 +41,12 @@ const EditOrder = ({
 
     // Continuar formateando la fecha si la cadena no está vacía
     const date = new Date(dateString);
-    const day = String(date.getUTCDate()).padStart(2, "0");
-    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-    const year = date.getUTCFullYear();
-    const hours = String(date.getUTCHours()).padStart(2, "0");
-    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
-    const seconds = String(date.getUTCSeconds()).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
     const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
     return formattedDate;
   };
@@ -56,12 +56,22 @@ const EditOrder = ({
     if (!dateString) {
       return null; // o puedes devolver una cadena vacía: return "";
     }
-
-    // Continuar formateando la fecha si la cadena no está vacía
-    const date = new Date(dateString);
+  
+    // Dividir la cadena en partes (día, mes, año, hora, minutos, segundos)
+    const parts = dateString.split(/[\s/:\-]/);
+  
+    // Crear un nuevo objeto Date con el formato adecuado (mes - 1 porque los meses van de 0 a 11 en JavaScript)
+    const date = new Date(parts[2], parts[1] - 1, parts[0], parts[3], parts[4], parts[5]);
+  
+    // Verificar si la fecha es válida
+    if (isNaN(date.getTime())) {
+      return null; // La fecha es inválida, devuelve null
+    }
+  
+    // Continuar formateando la fecha si es válida
     const isoString = date.toISOString();
     return isoString;
-};
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -76,7 +86,7 @@ const EditOrder = ({
     const observations = event.target.observations.value;
 
     const appointment = toISO8601(date);
-
+console.log(appointment)
     setEditUserData({
       id,
       appointment,

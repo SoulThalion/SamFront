@@ -2,8 +2,8 @@ import PlusIcon from "../../icons/PlusIcon";
 import UsersTableList from "./UsersTableList";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { useContext } from 'react';
-import { UserContext } from '../../context/userContext'
+import { useContext } from "react";
+import { UserContext } from "../../context/userContext";
 
 const UsersTable = ({
   filteredUsers,
@@ -17,14 +17,42 @@ const UsersTable = ({
   view,
   setView,
   document,
-  setDocument
+  setDocument,
 }) => {
+  const { user } = useContext(UserContext);
+  const [isMobileView, setIsMobileView] = useState(false);
 
-  const { user } = useContext(UserContext)
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 768); // Considerando una anchura de 768px para determinar vista de móvil
+    };
 
-  console.log(user)
-  
-  return (
+    handleResize(); // Verificar tamaño inicial
+    window.addEventListener("resize", handleResize); // Escuchar cambios de tamaño
+    return () => {
+      window.removeEventListener("resize", handleResize); // Limpiar el listener al desmontar el componente
+    };
+  }, []);
+
+  return isMobileView ? (
+    <><div
+    className="relative w-full overflow-x-auto shadow-md rounded-lg border-2 border-[#58aaae]"
+  >
+      <UsersTableList
+        filteredUsers={filteredUsers}
+        setEditUserData={setEditUserData}
+        setEditButton={setEditButton}
+        editButton={editButton}
+        deleteButton={deleteButton}
+        setDeleteButton={setDeleteButton}
+        view={view}
+        setView={setView}
+        document={document}
+        setDocument={setDocument}
+      />
+      </div>
+    </>
+  ) : (
     <div
       className="relative overflow-x-auto shadow-md sm:rounded-lg overflow-y-scroll lg:max-h-[360px] xl:max-h-[500px]"
       style={{
@@ -35,57 +63,69 @@ const UsersTable = ({
     >
       <table className="w-full text-sm text-left rtl:text-right text-white border border-[#58aaae]">
         <thead className="text-xs text-white uppercase bg-[#242529]">
-          <tr>{user?.role === 'admin' || user?.role === 'manager' ? (
+          <tr>
+            {user?.role === "admin" || user?.role === "manager" ? (
               <>
-            <th scope="col" className="px-6 py-3">
-              Id
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Id Cliente
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Id Barco
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Cita
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Trabajo
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Horas
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Estado
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Id Mecánico
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Observaciones
-            </th>
-            <td></td>
-            <td></td>
-            
-            <td>
-              <button
-                scope="col"
-                className="px-4 py-3 border-l border-[#58aaae]"
-                onClick={() => setNewButton(!newButton)}
-              >
-                <PlusIcon />
-              </button>
-            </td>
-            </>
-            ) : <>
-            <th scope="col" className="px-6 py-3">Cliente</th>
-            <th scope="col" className="px-6 py-3">Dirección</th>
-            <th scope="col" className="px-6 py-3">Teléfono</th>
-            <th scope="col" className="px-6 py-3">Cita</th>
-            <th scope="col" className="px-6 py-3">Horas</th>
-            <th></th>
-            
-            </>}
+                <th scope="col" className="px-6 py-3">
+                  Id
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Id Cliente
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Id Barco
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Cita
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Trabajo
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Horas
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Estado
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Id Mecánico
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Observaciones
+                </th>
+                <td></td>
+                <td></td>
+
+                <td>
+                  <button
+                    scope="col"
+                    className="px-4 py-3 border-l border-[#58aaae]"
+                    onClick={() => setNewButton(!newButton)}
+                  >
+                    <PlusIcon />
+                  </button>
+                </td>
+              </>
+            ) : (
+              <>
+                <th scope="col" className="px-6 py-3">
+                  Cliente
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Dirección
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Teléfono
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Cita
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Horas
+                </th>
+                <th></th>
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
