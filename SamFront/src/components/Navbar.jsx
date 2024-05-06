@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import ExitIcon from "../icons/ExitIcon";
 import MenuIcon from "../icons/MenuIcon";
 import UserIcon from "../icons/UserIcon";
@@ -7,20 +7,21 @@ import ClientsButton from "./buttons/ClientsButton";
 import LogOutButton from "./buttons/LogOutButton";
 import OrdersButton from "./buttons/OrdersButton";
 import UsersButton from "./buttons/UsersButton";
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 
 const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const location = useLocation();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    setIsDrawerOpen(false);  // Cerrar el drawer cada vez que cambia la ruta
+    setIsDrawerOpen(false); // Cerrar el drawer cada vez que cambia la ruta
   }, [location]);
 
   return (
     <>
-      <nav
-        className="fixed top-0 z-50 w-full border-b border-[#58aaae] text-white bg-[#1c1d20]"
-      >
+      <nav className="fixed top-0 z-50 w-full border-b border-[#58aaae] text-white bg-[#1c1d20]">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
@@ -60,7 +61,9 @@ const Navbar = () => {
       {/* Menus */}
       <div
         id="drawer-navigation"
-        className={`fixed mt-4 top-12 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'} border-r border-[#58aaae] bg-[#1c1d20]`}
+        className={`fixed mt-4 top-12 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform ${
+          isDrawerOpen ? "translate-x-0" : "-translate-x-full"
+        } border-r border-[#58aaae] bg-[#1c1d20]`}
         tabIndex="-1"
         aria-labelledby="drawer-navigation-label"
       >
@@ -81,8 +84,12 @@ const Navbar = () => {
         <div className="py-4 overflow-y-auto">
           <ul className="space-y-2 font-medium">
             <OrdersButton />
-            <ClientsButton />
-            <UsersButton />
+            {user?.role === "admin" || user?.role === "manager" && 
+              <>
+                <ClientsButton />
+                <UsersButton />
+              </>
+            }
             <LogOutButton />
           </ul>
         </div>

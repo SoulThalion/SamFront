@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import { updateOrder } from "../../services/orders.service";
 import { useState, useEffect } from "react";
 import { getShipsByClientId, getShipById } from "../../services/ship.service";
-import app from "../../services/config";
 //import {EditUserContext} from '../context/userContext'
 
 const EditOrder = ({

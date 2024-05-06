@@ -10,6 +10,8 @@ const Login = () => {
 
   const { user, setUser } = useContext(UserContext);
 
+  console.log(user)
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,11 +24,15 @@ const Login = () => {
     if (data) {
       localStorage.setItem("token", data.token);
       setUser(data.user);
+      console.log(data.user)
       navigate("/");
     }
   };
 
+  console.log(user)
+
   return (
+    <UserContext.Provider value={{user, setUser}}>
     <div
       className="flex flex-col justify-center items-center min-h-screen"
       style={{ backgroundColor: "#1c1d20" }}
@@ -90,6 +96,7 @@ const Login = () => {
         </div>
       </form>
     </div>
+    </UserContext.Provider>
   );
 };
 

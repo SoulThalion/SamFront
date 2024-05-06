@@ -3,10 +3,10 @@ import EditIcon from "../../icons/EditIcon";
 import DeleteIcon from "../../icons/DeleteIcon";
 import DocumentIcon from "../../icons/DocumentIcon";
 import { deleteOrder } from "../../services/orders.service";
-
+import { getClientById } from "../../services/clients.service";
 import { useEffect, useState } from "react";
-//import { useContext } from 'react';
-//import {EditUserContext} from '../context/userContext'
+import { useContext } from 'react';
+import { UserContext } from '../../context/userContext'
 
 const UsersTableRow = ({
   id,
@@ -30,12 +30,20 @@ const UsersTableRow = ({
 }) => {
   //const { editUser, setEditUser } = useContext(EditUserContext);
 
- 
+  const { user } = useContext(UserContext)
   const [formattedDate, setFormattedDate] = useState("");
+  const [client, setClient] = useState({});
+ 
 
   useEffect(() => {
     const fechaFormateada = formatDate(appointment);
     setFormattedDate(fechaFormateada);
+    const fetchClient = async () => {
+      const data = await getClientById(clientId);
+      setClient(data);
+    };
+
+    fetchClient()
 
   }, []);
 
@@ -103,8 +111,11 @@ const UsersTableRow = ({
     }
   };
 
+  console.log()
+
   return (
-    <>
+    <>{user?.role === 'admin' || user?.role === 'manager' ? (
+        <>
       <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
         {id}
       </th>
@@ -120,44 +131,62 @@ const UsersTableRow = ({
       <td className="px-6 py-4 max-w-[250px]">
         <div className="max-h-5 overflow-y-auto">{observations}</div>
       </td>
+      
+          <td>
+            <button
+              className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
+              onClick={handleClick}
+            >
+              <DocumentIcon />
+            </button>
+          </td>
+          <td>
+            <button
+              className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
+              onClick={() => {
+                setEditUserData({
+                  id: id,
+                  appointment: appointment,
+                  work: work,
+                  hours: hours,
+                  userId: userId,
+                  shipId: shipId,
+                  clientId: clientId,
+                  observations: observations,
+                  finish: finish
+                });
+                setEditButton(!editButton);
+              }}
+            >
+              <EditIcon />
+            </button>
+          </td>
+          <td>
+            <button
+              className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
+              onClick={handleDelete}
+            >
+              <DeleteIcon />
+            </button>
+          </td>
+        </>
+      ) : 
+      <>
+      <td className="px-6 py-4">{client.name}{" "}{client.surName}</td>
+      <td className="px-6 py-4">{client.address}</td>
+      <td className="px-6 py-4">{client.telephone}</td>
+      <td className="px-6 py-4">{formattedDate}</td>
+      <td className="px-6 py-4">{hours}</td>
       <td>
-        <button
-          className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
-          onClick={handleClick}
-        >
-          <DocumentIcon />
-        </button>
-      </td>
-      <td>
-        <button
-          className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
-          onClick={() => {
-            setEditUserData({
-              id: id,
-              appointment: appointment,
-              work: work,
-              hours: hours,
-              userId: userId,
-              shipId: shipId,
-              clientId: clientId,
-              observations: observations,
-              finish: finish
-            });
-
-            setEditButton(!editButton);
-          }}
-        >
-          <EditIcon />
-        </button>
-      </td>
-      <td>
-        <button
-          className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
-          onClick={handleDelete}
-        >
-          <DeleteIcon />
-        </button>
-      </td>
+            <button
+              className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
+              onClick={handleClick}
+            >
+              <DocumentIcon />
+            </button>
+          </td>
+      
+      </>}
     </>
   );
 };

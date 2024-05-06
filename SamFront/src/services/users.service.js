@@ -114,3 +114,19 @@ export const getUserById = async (id) => {
         throw error; // Propagar el error para que pueda ser manejado por el código que llama a esta función
     }
 };
+
+export const getUserByToken = async () => {
+    const token = localStorage.getItem('token');
+  
+    try {
+      const { data } = await app.get('/user/token', {
+        headers: {
+          token: token,
+        },
+      })
+      return data.user
+  
+    } catch (error) {
+      console.log('Error getting user data: ', error.message)
+    }
+  }

@@ -1,7 +1,9 @@
 import PlusIcon from "../../icons/PlusIcon";
 import UsersTableList from "./UsersTableList";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useContext } from 'react';
+import { UserContext } from '../../context/userContext'
 
 const UsersTable = ({
   filteredUsers,
@@ -17,6 +19,11 @@ const UsersTable = ({
   document,
   setDocument
 }) => {
+
+  const { user } = useContext(UserContext)
+
+  console.log(user)
+  
   return (
     <div
       className="relative overflow-x-auto shadow-md sm:rounded-lg overflow-y-scroll lg:max-h-[360px] xl:max-h-[500px]"
@@ -28,7 +35,8 @@ const UsersTable = ({
     >
       <table className="w-full text-sm text-left rtl:text-right text-white border border-[#58aaae]">
         <thead className="text-xs text-white uppercase bg-[#242529]">
-          <tr>
+          <tr>{user?.role === 'admin' || user?.role === 'manager' ? (
+              <>
             <th scope="col" className="px-6 py-3">
               Id
             </th>
@@ -58,6 +66,7 @@ const UsersTable = ({
             </th>
             <td></td>
             <td></td>
+            
             <td>
               <button
                 scope="col"
@@ -67,6 +76,16 @@ const UsersTable = ({
                 <PlusIcon />
               </button>
             </td>
+            </>
+            ) : <>
+            <th scope="col" className="px-6 py-3">Cliente</th>
+            <th scope="col" className="px-6 py-3">Dirección</th>
+            <th scope="col" className="px-6 py-3">Teléfono</th>
+            <th scope="col" className="px-6 py-3">Cita</th>
+            <th scope="col" className="px-6 py-3">Horas</th>
+            <th></th>
+            
+            </>}
           </tr>
         </thead>
         <tbody>

@@ -3,7 +3,7 @@ import { getClientById } from "../../services/clients.service";
 import { useEffect, useState } from "react";
 import { getShipById } from "../../services/ship.service";
 import { getUserById } from "../../services/users.service";
-import XIcon from '../../icons/XIcon'
+import XIcon from "../../icons/XIcon";
 
 const ViewOrder = ({ view, setView, document }) => {
   const [client, setClient] = useState({});
@@ -23,8 +23,13 @@ const ViewOrder = ({ view, setView, document }) => {
     };
 
     const fetchMechanic = async () => {
-      const data = await getUserById(document.userId);
-      setMechanic(data);
+      try {
+        const data = await getUserById(document.userId);
+        setMechanic(data);
+      } catch (error) {
+        console.error("Error al obtener el mecánico:", error);
+        setMechanic(null);
+      }
     };
 
     const fechaFormateada = formatDate(document.appointment);
@@ -44,7 +49,7 @@ const ViewOrder = ({ view, setView, document }) => {
     if (!dateString) {
       return null; // o puedes devolver una cadena vacía: return "";
     }
-  
+
     // Continuar formateando la fecha si la cadena no está vacía
     const date = new Date(dateString);
     const day = String(date.getUTCDate()).padStart(2, "0");
@@ -56,7 +61,6 @@ const ViewOrder = ({ view, setView, document }) => {
     const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
     return formattedDate;
   };
-  
 
   return (
     <>
@@ -66,12 +70,15 @@ const ViewOrder = ({ view, setView, document }) => {
             <p className="row-start-2 col-start-1">
               <span className="text-white text-lg font-bold">Estado: </span>{" "}
               {document.finish ? "Finalizado" : "Pendiente"}
-            </p> 
-        <button className="justify-self-end row-start-1 col-start-2 mt-2" onClick={handleClick}>
-            <XIcon/>
-          </button>
+            </p>
+            <button
+              className="justify-self-end row-start-1 col-start-2 mt-2"
+              onClick={handleClick}
+            >
+              <XIcon />
+            </button>
           </div>
-         
+
           <div className="grid grid-cols-2 rounded-lg grid-rows-[15px] gap-5 bg-[#21212d] border border-[#58aaae] p-5">
             <h1 className="col-start-1 row-start-1 text-white text-lg font-bold">
               Datos de Cliente:
@@ -129,17 +136,31 @@ const ViewOrder = ({ view, setView, document }) => {
               <h1 className=" text-white text-lg font-bold">Observaciones:</h1>
               <p className=" text-white">{document.observations}</p>
             </div>
-            <p className="col-start-1 row-start-2 text-white">
-              <p className="font-bold">Mecánico asignado:</p> {mechanic.name}{" "}
-              {mechanic.surName}
-            </p>
-            <p className="col-start-2 row-start-2 text-white">
-              <p className="font-bold">Cita:</p> {formattedDate}{" "}
-              <p>
-                <span className="font-bold">Horas: </span>
-                {document.hours}
-              </p>
-            </p>
+            {mechanic ? (
+              <>
+                <p className="col-start-1 row-start-2 text-white">
+                  <p className="font-bold">Mecánico asignado:</p>{" "}
+                  {mechanic.name} {mechanic.surName}
+                </p>
+                <p className="col-start-2 row-start-2 text-white">
+                  <p className="font-bold">Cita:</p> {formattedDate}{" "}
+                  <p>
+                    <span className="font-bold">Horas: </span>
+                    {document.hours}
+                  </p>
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="col-start-1 row-start-2 text-white">
+                  <p className="font-bold">Cita:</p> {formattedDate}
+                </p>
+
+                <p className="col-start-2 row-start-2 text-white">
+                  <p className="font-bold">Horas:</p> {document.hours}
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>
