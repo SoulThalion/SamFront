@@ -16,7 +16,7 @@ const NewShip = ({ setNewButton, newButton, editUserData }) => {
         const newShip = await createShip(model, brand, reg, editUserData.id);
         console.log("Barco añadido:", newShip);
         setNewButton(!newButton);
-        toast.success('Barco añadido!')
+        toast.success('Barco añadido')
         // Limpiar el formulario o realizar otras acciones después de crear el usuario
       } catch (error) {
         console.error("Error al crear el usuario:", error);

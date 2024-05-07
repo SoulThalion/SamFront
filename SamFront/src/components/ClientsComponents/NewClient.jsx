@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { createClient } from "../../services/clients.service";
+import toast from "react-hot-toast";
 
 const NewClient = ({ setNewButton, newButton }) => {
   const handleSubmit = async (event) => {
@@ -21,8 +22,8 @@ const NewClient = ({ setNewButton, newButton }) => {
         email,
         cif
       );
-      console.log("Cliente creado:", newClient);
-      window.alert("Cliente Creado");
+      
+      toast.success('Cliente creado')
       setNewButton(!newButton);
 
       // Limpiar el formulario o realizar otras acciones después de crear el usuario

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import EditIcon from "../../icons/EditIcon";
 import DeleteIcon from "../../icons/DeleteIcon";
 import { deleteClient } from "../../services/clients.service";
+import toast from "react-hot-toast";
 //import { useContext } from 'react';
 //import {EditUserContext} from '../context/userContext'
 
@@ -24,29 +25,78 @@ const UsersTableRow = ({
   const handleDelete = async (event) => {
     event.preventDefault();
 
-    // Mostrar el cuadro de diálogo de confirmación
-    const confirmation = window.confirm("¿Estás seguro de que deseas eliminar este cliente?");
+    try {
+      // Muestra el toast de confirmación
+      const confirmation = await new Promise((resolve) => {
+        // Resuelve la promesa con true cuando se pulsa Aceptar
+        const handleConfirm = () => {
+          resolve(true);
+          toast.dismiss(); // Cierra el toast al confirmar
+          toast.success('Usuario eliminado')
+        };
+        // Resuelve la promesa con false cuando se pulsa Cancelar
+        const handleCancel = () => {
+          resolve(false);
+          toast.dismiss(); // Cierra el toast al cancelar
+        };
 
-    // Si el usuario confirma la eliminación
-    if (confirmation) {
+        // Muestra el toast con los botones
+        toast(
+          (t) => (
+            <div className="text-center">
+              <p className="text-lg">
+                ¿Estás seguro de que deseas eliminar este usuario?
+              </p>
+              <div className="mt-4 flex justify-center">
+                <button
+                  onClick={handleConfirm}
+                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mr-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                >
+                  Aceptar
+                </button>
+                <button
+                  onClick={handleCancel}
+                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          ),
+          {
+            // Configuración adicional del toast
+            duration: Infinity, // Duración corta para que desaparezca rápidamente después de confirmar o cancelar
+            icon: false, // Para hacer invisible el toast
+            dismissOnHover: true, // Para que el toast se cierre cuando el puntero esté encima
+          }
+        );
+      });
+
+      // Si el usuario confirma la eliminación
+      if (confirmation) {
         try {
-            const update = await deleteClient(id);
+          const update = await deleteClient(id);
 
-            setDeleteButton(!deleteButton);
-            
-            // Realizar cualquier otra acción necesaria después de eliminar el usuario
-            console.log("Usuario eliminado:", update);
-            
-            // Limpiar el formulario u otras acciones después de eliminar el usuario
+          setDeleteButton(!deleteButton);
+
+          // Realizar cualquier otra acción necesaria después de eliminar el usuario
+          console.log("Usuario eliminado:", update);
+
+          // Limpiar el formulario u otras acciones después de eliminar el usuario
         } catch (error) {
-            console.error("Error al eliminar el usuario:", error);
-            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+          console.error("Error al eliminar el usuario:", error);
+          // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         }
-    } else {
+      } else {
         // Si el usuario cancela, no hacemos nada
         return;
+      }
+    } catch (error) {
+      console.error("Error al mostrar la confirmación:", error);
+      // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
     }
-};
+  };
+
 
 
   return (

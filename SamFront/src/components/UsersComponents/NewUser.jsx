@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { createUser } from "../../services/users.service";
+import toast from "react-hot-toast";
 
 const NewUser = ({ setNewButton, newButton }) => {
   const handleSubmit = async (event) => {
@@ -14,7 +15,7 @@ const NewUser = ({ setNewButton, newButton }) => {
     const role = event.target.role.value;
 
     try {
-      const newUser = await createUser(
+      await createUser(
         userName,
         name,
         surName,
@@ -23,8 +24,7 @@ const NewUser = ({ setNewButton, newButton }) => {
         password,
         role
       );
-      console.log("Usuario creado:", newUser);
-      window.alert("Usuario Creado");
+      toast.success("Usuario creado");
       setNewButton(!newButton);
 
       // Limpiar el formulario o realizar otras acciones después de crear el usuario

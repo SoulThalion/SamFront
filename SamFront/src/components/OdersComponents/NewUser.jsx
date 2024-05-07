@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { createOrder } from "../../services/orders.service";
 import { useState, useEffect } from "react";
 import { getShipsByClientId } from "../../services/ship.service";
+import toast from "react-hot-toast";
 
 const NewUser = ({ setNewButton, newButton }) => {
   const [clientId, setClientId] = useState();
@@ -30,8 +31,7 @@ const NewUser = ({ setNewButton, newButton }) => {
 
     try {
       const newUser = await createOrder(work, shipId, clientId);
-      console.log("Orden creada:", newUser);
-      window.alert("Orden creada");
+      toast.success('Orden creada')
       setNewButton(!newButton);
 
       // Limpiar el formulario o realizar otras acciones después de crear el usuario

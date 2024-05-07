@@ -4,6 +4,7 @@ import { getShipsByClientId } from "../../services/ship.service";
 import { useEffect, useState } from "react";
 import ShipsTable from "../ShipsComponents/ShipsTable";
 import NewShip from "../ShipsComponents/NewShip";
+import toast from "react-hot-toast";
 //import { useContext } from "react";
 //import {EditUserContext} from '../context/userContext'
 
@@ -46,7 +47,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
         cif
       );
 
-      window.alert("Usuario Editado");
+      toast.success('Usuario editado')
       setEditButton(!editButton);
       console.log("Usuario editado:", update);
 

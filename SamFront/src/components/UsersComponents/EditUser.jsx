@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { updateUser } from "../../services/users.service";
+import toast from "react-hot-toast";
 //import { useContext } from "react";
 //import {EditUserContext} from '../context/userContext'
 
@@ -19,7 +20,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
     const role = event.target.role.value;
 
     try {
-      const update = await updateUser(
+      await updateUser(
         id,
         userName,
         name,
@@ -30,9 +31,8 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
         role
       );
 
-      window.alert("Usuario Editado");
+      toast.success("Usuario editado");
       setEditButton(!editButton);
-      console.log("Usuario editado:", update);
 
       // Limpiar el formulario o realizar otras acciones después de crear el usuario
     } catch (error) {

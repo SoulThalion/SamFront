@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { getShipsByClientId, getShipById } from "../../services/ship.service";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
+import toast from "react-hot-toast";
 
 const EditOrder = ({
   editUserData,
@@ -56,7 +57,7 @@ const EditOrder = ({
   const toISO8601 = (dateString) => {
     // Verificar si la cadena de fecha está vacía
     if (!dateString) {
-      return null; // o puedes devolver una cadena vacía: return "";
+        return ""; // Devolver una cadena vacía
     }
 
     // Dividir la cadena en partes (día, mes, año, hora, minutos, segundos)
@@ -64,23 +65,24 @@ const EditOrder = ({
 
     // Crear un nuevo objeto Date con el formato adecuado (mes - 1 porque los meses van de 0 a 11 en JavaScript)
     const date = new Date(
-      parts[2],
-      parts[1] - 1,
-      parts[0],
-      parts[3],
-      parts[4],
-      parts[5]
+        parts[2],
+        parts[1] - 1,
+        parts[0],
+        parts[3],
+        parts[4],
+        parts[5]
     );
 
     // Verificar si la fecha es válida
     if (isNaN(date.getTime())) {
-      return null; // La fecha es inválida, devuelve null
+        return null; // La fecha es inválida, devuelve null
     }
 
     // Continuar formateando la fecha si es válida
     const isoString = date.toISOString();
     return isoString;
-  };
+};
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -119,9 +121,9 @@ const EditOrder = ({
         observations
       );
 
-      window.alert("Usuario Editado");
+      toast.success('Orden editada')
       setEditButton(!editButton);
-      console.log("Usuario editado:", update);
+      console.log("Orden editada:", update);
 
       // Limpiar el formulario o realizar otras acciones después de crear el usuario
     } catch (error) {
@@ -230,7 +232,6 @@ const EditOrder = ({
           defaultValue={editUserData.observations}
           className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           placeholder="Observaciones"
-          required
         />
       </div>
 
@@ -266,7 +267,6 @@ const EditOrder = ({
           className={`bg-[#21212d] border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
             user.role === "mechanic" ? "hidden" : ""
           }`}
-          required
           readOnly={user.role === "mechanic"}
         >
           <option value={editUserData.finish ? "true" : "false"} selected>
