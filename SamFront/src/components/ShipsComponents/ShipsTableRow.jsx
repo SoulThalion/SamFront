@@ -5,6 +5,7 @@ import { deleteShip } from "../../services/ship.service";
 import { updateShip } from "../../services/ship.service";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import SaveIcon from "../../icons/SaveIcon";
 //import { useContext } from 'react';
 //import {EditUserContext} from '../context/userContext'
 
@@ -112,7 +113,7 @@ const ShipsTableRow = ({
           className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
           onClick={handleEdit}
         >
-          <EditIcon />
+          <SaveIcon />
         </button>
       </td>
       <td>

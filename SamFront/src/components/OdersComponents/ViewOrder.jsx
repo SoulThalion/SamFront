@@ -157,7 +157,7 @@ const ViewOrder = ({ view, setView, document }) => {
                 <p className="lg:col-start-1 lg:row-start-2 text-white mb-2 lg:mb-0">
                   <p className="font-bold">Cita:</p> {formattedDate}
                 </p>
-<hr />
+
                 <p className="lg:col-start-2 lg:row-start-2 text-white mt-2 lg:mt-0">
                   <p className="font-bold">Horas:</p> {document.hours}
                 </p>

@@ -124,6 +124,7 @@ const UsersTable = ({
                   Horas
                 </th>
                 <th></th>
+                <th></th>
               </>
             )}
           </tr>

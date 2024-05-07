@@ -73,7 +73,7 @@ const Orders = () => {
               setEditButton={setEditButton}
               editButton={editButton}
             />
-            <h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">
+            <h1 className={`absolute top-20 right-5 text-4xl text-center mb-4 z-100 ${user.role === "mechanic" ? "hidden" : ""}`}>
               Editar Orden
             </h1>
           </div>

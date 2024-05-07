@@ -142,7 +142,33 @@ const UsersTableRow = ({
             >
               <DocumentIcon />
             </button>
+            <div className="pt-2">
+            <button
+                  className="px-4 py-4 ml-4 bg-[#242529] rounded-lg border border-[#58aaae]"
+                  onClick={() => {
+                    setEditUserData({
+                      id: id,
+                      appointment: appointment,
+                      work: work,
+                      hours: hours,
+                      userId: userId,
+                      shipId: shipId,
+                      clientId: clientId,
+                      observations: observations,
+                      finish: finish,
+                    });
+                    setEditButton(!editButton);
+                  }}
+                >
+                  <EditIcon />
+                </button>
+                </div>
           </td>
+
+          
+                
+              
+          
         </>
       ) : (
         <>
@@ -221,6 +247,27 @@ const UsersTableRow = ({
                   onClick={handleClick}
                 >
                   <DocumentIcon />
+                </button>
+              </td>
+              <td>
+                <button
+                  className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
+                  onClick={() => {
+                    setEditUserData({
+                      id: id,
+                      appointment: appointment,
+                      work: work,
+                      hours: hours,
+                      userId: userId,
+                      shipId: shipId,
+                      clientId: clientId,
+                      observations: observations,
+                      finish: finish,
+                    });
+                    setEditButton(!editButton);
+                  }}
+                >
+                  <EditIcon />
                 </button>
               </td>
             </>
