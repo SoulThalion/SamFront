@@ -86,10 +86,10 @@ const UsersTableRow = ({
     const year = date.getFullYear();
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
-    const seconds = String(date.getSeconds()).padStart(2, "0");
-    const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    // Omitir los segundos
+    const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}`;
     return formattedDate;
-  };
+};
 
   const handleDelete = async (event) => {
     event.preventDefault();
@@ -101,7 +101,7 @@ const UsersTableRow = ({
         const handleConfirm = () => {
           resolve(true);
           toast.dismiss(); // Cierra el toast al confirmar
-          toast.success('Usuario eliminado')
+          toast.success("Usuario eliminado");
         };
         // Resuelve la promesa con false cuando se pulsa Cancelar
         const handleCancel = () => {
@@ -172,48 +172,40 @@ const UsersTableRow = ({
         <>
           <td className="px-6 py-4 text-xl border border-[#58aaae] space-y-3">
             {client.name} {client.surName}
-            
             <p className="pt-3">{client.address}</p>
-            
             <p>{client.telephone}</p>
-            
             <p>{formattedDate}</p>
           </td>
 
-          <td className="border border-[#58aaae]">
+          <td className="border border-[#58aaae] w-10">
             <button
-              className="px-4 py-4 ml-4 bg-[#242529] rounded-lg border border-[#58aaae]"
+              className="px-4 py-4 mx-4 mt-2 bg-[#242529] rounded-lg border border-[#58aaae]"
               onClick={handleClick}
             >
               <DocumentIcon />
             </button>
             <div className="pt-2">
-            <button
-                  className="px-4 py-4 ml-4 bg-[#242529] rounded-lg border border-[#58aaae]"
-                  onClick={() => {
-                    setEditUserData({
-                      id: id,
-                      appointment: appointment,
-                      work: work,
-                      hours: hours,
-                      userId: userId,
-                      shipId: shipId,
-                      clientId: clientId,
-                      observations: observations,
-                      finish: finish,
-                    });
-                    setEditButton(!editButton);
-                  }}
-                >
-                  <EditIcon />
-                </button>
-                </div>
+              <button
+                className="px-4 py-4 mx-4 mb-2 bg-[#242529] rounded-lg border border-[#58aaae]"
+                onClick={() => {
+                  setEditUserData({
+                    id: id,
+                    appointment: appointment,
+                    work: work,
+                    hours: hours,
+                    userId: userId,
+                    shipId: shipId,
+                    clientId: clientId,
+                    observations: observations,
+                    finish: finish,
+                  });
+                  setEditButton(!editButton);
+                }}
+              >
+                <EditIcon />
+              </button>
+            </div>
           </td>
-
-          
-                
-              
-          
         </>
       ) : (
         <>

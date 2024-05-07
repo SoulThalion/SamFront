@@ -57,14 +57,15 @@ const ViewOrder = ({ view, setView, document }) => {
     const year = date.getUTCFullYear();
     const hours = String(date.getUTCHours()).padStart(2, "0");
     const minutes = String(date.getUTCMinutes()).padStart(2, "0");
-    const seconds = String(date.getUTCSeconds()).padStart(2, "0");
-    const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    // Omitir los segundos
+    const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}`;
     return formattedDate;
-  };
+};
+
 
   return (
-    <>
-      <div className="flex flex-col justify-center items-center h-screen w-screen pt-60 lg:pt-0 text-xl lg:text-lg overflow-y-auto">
+    <div>
+      <div className="flex flex-col justify-start items-center h-screen w-screen lg:pt-0 text-xl lg:text-lg overflow-y-auto">
         <div className="w-full max-w-xl rounded-lg px-5 pb-5 border border-[#58aaae] bg-[#242529]">
           <div className="grid grid-cols-2 grid-rows-2">
             <p className="row-start-2 col-start-1">
@@ -79,14 +80,14 @@ const ViewOrder = ({ view, setView, document }) => {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 rounded-lg lg:grid-rows-[15px] gap-0 bg-[#21212d] border-x border-t border-[#58aaae] p-5">
+          <div className="grid grid-cols-2 rounded-tl-lg rounded-tr-lg lg:grid-rows-[15px] gap-0 bg-[#21212d] border-x border-t border-[#58aaae] p-5">
             <h1 className="col-start-1 row-start-1 text-white text-lg font-bold">
               Datos de Cliente:
             </h1>
             <div className="col-start-2 row-start-1 text-white justify-self-end">
               {document.id}
             </div></div>
-            <div className="lg:grid lg:grid-cols-2 rounded-lg lg:grid-rows-[15px] gap-5 bg-[#21212d] border-x border-b border-[#58aaae] lg:p-5 px-5 pb-5">
+            <div className="lg:grid lg:grid-cols-2 rounded-bl-lg rounded-br-lg lg:grid-rows-[15px] gap-5 bg-[#21212d] border-x border-b border-[#58aaae] lg:p-5 px-5 pb-5">
             <p className="lg:col-start-1 lg:row-start-2 text-white lg:pb-0 pb-1">
               <span className="font-bold">Nombre:</span> {client.name}{" "}
               {client.surName}
@@ -106,14 +107,14 @@ const ViewOrder = ({ view, setView, document }) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-3 rounded-lg grid-rows-[15px] gap-5 bg-[#21212d] border-x border-t border-[#58aaae] mt-5 p-5">
+          <div className="grid grid-cols-3 rounded-tl-lg rounded-tr-lg grid-rows-[15px] gap-5 bg-[#21212d] border-x border-t border-[#58aaae] mt-5 p-5">
             <h1 className="col-start-1 row-start-1 text-white text-lg font-bold">
               Barco:
             </h1>
             <div className="col-start-3 lg:row-start-1 text-white justify-self-end">
               {document.shipId}
             </div></div>
-            <div className="lg:grid lg:grid-cols-3 rounded-lg grid-rows-[15px] gap-5 bg-[#21212d] border-x border-b border-[#58aaae] px-5 pb-5">
+            <div className="lg:grid lg:grid-cols-3 rounded-bl-lg rounded-br-lg grid-rows-[15px] gap-5 bg-[#21212d] border-x border-b border-[#58aaae] px-5 pb-5">
             <p className="lg:col-start-1 lg:row-start-2 text-white mb-2 lg:mb-0">
               <span className="font-bold">Marca:</span> {ship.brand}{" "}
             </p>
@@ -166,7 +167,7 @@ const ViewOrder = ({ view, setView, document }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
