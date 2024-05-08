@@ -5,9 +5,11 @@ import { getShipsByClientId, getShipById } from "../../services/ship.service";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import toast from "react-hot-toast";
-import Datepicker from "flowbite-datepicker/Datepicker";
-import DatePicker from "react-multi-date-picker";
-import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import Datepicker from "tailwind-datepicker-react";
+import CalendarIcon from "../../icons/CalendarIcon";
+//import Datepicker from "flowbite-datepicker/Datepicker";
+//import DatePicker from "react-multi-date-picker";
+//import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
 const EditOrder = ({
   editUserData,
@@ -20,8 +22,14 @@ const EditOrder = ({
   const [ships, setShips] = useState([]);
   const [ship, setShip] = useState({});
   const { user } = useContext(UserContext);
- const [date, setDate] = useState()
-  console.log(date)
+  const [show, setShow] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+
+  console.log(formattedDate);
+  console.log(date);
+  console.log(time);
 
   useEffect(() => {
     const fetchAllShips = async () => {
@@ -36,6 +44,9 @@ const EditOrder = ({
 
     const fechaFormateada = formatDate(editUserData.appointment);
     setFormattedDate(fechaFormateada);
+    const [fecha, hora] = fechaFormateada.split(" ");
+    setDate(fecha);
+    setTime(hora);
 
     const datepickerEl = document?.getElementById("datepickerId");
     // console.log(datepickerEl);
@@ -44,23 +55,71 @@ const EditOrder = ({
     fetchAllShips();
     fetchShip();
 
-     // Función para manejar el cambio de fecha seleccionada
-     const handleDateChange = (event) => {
+    // Función para manejar el cambio de fecha seleccionada
+    const handleDateChange = (event) => {
       // Actualizar el estado con la nueva fecha seleccionada
       setDate(event.target.value);
     };
 
     // Obtener el input del datepicker por su id
-    const datepickerInput = document.getElementById('datepickerId');
+    const datepickerInput = document.getElementById("datepickerId");
 
     // Agregar un event listener para el evento de cambio de input
-    datepickerInput.addEventListener('input', handleDateChange);
+    datepickerInput.addEventListener("input", handleDateChange);
 
     // Limpiar el event listener cuando se desmonta el componente
     return () => {
-      datepickerInput.removeEventListener('input', handleDateChange);
+      datepickerInput.removeEventListener("input", handleDateChange);
     };
   }, []);
+
+  const options = {
+    title: "Demo Title",
+    autoHide: true,
+    todayBtn: false,
+    clearBtn: true,
+    clearBtnText: "Clear",
+    maxDate: new Date("2030-01-01"),
+    minDate: new Date("1950-01-01"),
+    theme: {
+      background: "bg-gray-700 dark:bg-gray-800",
+      todayBtn: "",
+      clearBtn: "",
+      icons: "",
+      text: "",
+      disabledText: "bg-red-500",
+      input: "bg-transparent text-white border border-none pt-2.5",
+      inputIcon: "",
+      selected: "",
+    },
+    icons: {
+      // () => ReactElement | JSX.Element
+      prev: () => <span>Previous</span>,
+      next: () => <span>Next</span>,
+    },
+    datepickerClassNames: "top-12",
+    defaultDate: date,
+    language: "es",
+    disabledDates: [],
+    weekDays: ["L", "M", "X", "J", "V", "S", "D"],
+    datepickerFormat: ["DD,MM,YYYY"],
+    inputNameProp: "date",
+    inputIdProp: "date",
+    inputPlaceholderProp: "Select Date",
+    inputDateFormatProp: {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    },
+  };
+
+  const handleChange = (selectedDate) => {
+    setSelectedDate(selectedDate);
+    console.log(selectedDate);
+  };
+  const handleClose = (state) => {
+    setShow(state);
+  };
 
   const formatDate = (dateString) => {
     // Verificar si la cadena de fecha está vacía
@@ -190,7 +249,7 @@ const EditOrder = ({
               id="userId"
               defaultValue={editUserData.userId}
               style={{ backgroundColor: "#21212d" }}
-              className={`border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-10 p-2.5 ${
+              className={`border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-10 p-2.5 ${
                 user.role === "mechanic" ? "hidden" : ""
               }`}
               readOnly={user.role === "mechanic"}
@@ -201,7 +260,7 @@ const EditOrder = ({
             className={`${
               user.role === "mechanic"
                 ? "col-start-1 row-start-4 col-span-2 mb-5"
-                : "col-start-1 row-start-4"
+                : "col-start-1 row-start-5"
             }`}
           >
             <label
@@ -216,28 +275,37 @@ const EditOrder = ({
               id="datepickerId"
               value={date}
               style={{ backgroundColor: "#21212d" }}
-              className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[94px] p-2.5 "
+              className="border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[94px] p-2.5 "
               defaultValue={formattedDate}
-
             />
           </div>
-          <div className="col-start-1 row-start-4 justify-self-end">
-            <label
-              htmlFor="time"
-              className="block mb-2 text-sm font-medium text-white"
-            >
-              Hora:
-            </label>
 
-            <input
-              type="time"
-              id="time"
-              className="bg-[#21212d] border leading-none border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90px] p-2.5"
-              min="09:00"
-              max="18:00"
-              defaultValue="00:00"
-              required
-            />
+          <div className="grid gap-0 grid-cols-2 bg-[#21212d] rounded-lg border border-[#58aaae] ">
+            <div className="col-start-2 row-start-4 justify-self-end">
+              <input
+                type="time"
+                id="time"
+                className="bg-transparent border-none leading-none text-white text-sm p-2.5"
+                min="09:00"
+                max="18:00"
+                defaultValue={time}
+                required
+              />
+            </div>
+
+            <div className="col-start-1 row-start-4">
+              <label
+                htmlFor="time"
+                className="block text-sm font-medium text-white"
+              ></label>
+              <Datepicker
+                options={options}
+                onChange={handleChange}
+                show={show}
+                setShow={handleClose}
+                classNames="w-[120px]"
+              />
+            </div>
           </div>
 
           <div className="mb-0 col-start-1 row-start-2 col-span-2">
@@ -258,7 +326,7 @@ const EditOrder = ({
                 textAlign: "left",
               }}
               defaultValue={editUserData.work}
-              className={`border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
+              className={`border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
                 user.role === "mechanic" ? "hidden" : ""
               }`}
               required
@@ -286,7 +354,7 @@ const EditOrder = ({
                 textAlign: "left",
               }}
               defaultValue={editUserData.observations}
-              className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Observaciones"
             />
           </div>
@@ -309,7 +377,7 @@ const EditOrder = ({
               id="hours"
               defaultValue={editUserData.hours}
               style={{ backgroundColor: "#21212d" }}
-              className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              className="border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="hours"
               required
             />
@@ -326,7 +394,7 @@ const EditOrder = ({
             </label>
             <select
               id="finish"
-              className={`bg-[#21212d] border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
+              className={`bg-[#21212d] border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
                 user.role === "mechanic" ? "hidden" : ""
               }`}
               readOnly={user.role === "mechanic"}
@@ -352,7 +420,7 @@ const EditOrder = ({
             <select
               id="shipId"
               defaultValue={editUserData.shipId}
-              className={`bg-[#21212d] border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
+              className={`bg-[#21212d] border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
                 user.role === "mechanic" ? "hidden" : ""
               }`}
               required
