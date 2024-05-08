@@ -55,7 +55,7 @@ const UsersTableRow = ({
     return () => {
       window.removeEventListener("resize", handleResize); // Limpiar el listener al desmontar el componente
     };
-  }, []);
+  }, [editButton]);
 
   const handleClick = () => {
     setView(!view);

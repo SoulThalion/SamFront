@@ -6,7 +6,8 @@ import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import toast from "react-hot-toast";
 import Datepicker from "tailwind-datepicker-react";
-import CalendarIcon from "../../icons/CalendarIcon";
+import LeftArrowIcon from "../../icons/LeftArrowIcon";
+import RigthArrowIcon from "../../icons/RigthArrowIcon";
 //import Datepicker from "flowbite-datepicker/Datepicker";
 //import DatePicker from "react-multi-date-picker";
 //import TimePicker from "react-multi-date-picker/plugins/time_picker";
@@ -23,13 +24,8 @@ const EditOrder = ({
   const [ship, setShip] = useState({});
   const { user } = useContext(UserContext);
   const [show, setShow] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-
-  console.log(formattedDate);
-  console.log(date);
-  console.log(time);
 
   useEffect(() => {
     const fetchAllShips = async () => {
@@ -42,63 +38,55 @@ const EditOrder = ({
       setShip(data);
     };
 
-    const fechaFormateada = formatDate(editUserData.appointment);
+    const fechaFormateada = editUserData.appointment
+      ? formatDate(editUserData.appointment)
+      : new Date();
     setFormattedDate(fechaFormateada);
-    const [fecha, hora] = fechaFormateada.split(" ");
+    let fecha, hora;
+    if (typeof fechaFormateada === "string") {
+      [fecha, hora] = fechaFormateada.split(" ");
+    } else {
+      // Si fechaFormateada es una instancia de Date, obtenemos la fecha y hora actual
+      fecha = fechaFormateada.toISOString().split("T")[0];
+      hora = "00:00";
+    }
     setDate(fecha);
     setTime(hora);
 
-    const datepickerEl = document?.getElementById("datepickerId");
-    // console.log(datepickerEl);
-    new Datepicker(datepickerEl, {});
-
     fetchAllShips();
     fetchShip();
-
-    // Función para manejar el cambio de fecha seleccionada
-    const handleDateChange = (event) => {
-      // Actualizar el estado con la nueva fecha seleccionada
-      setDate(event.target.value);
-    };
-
-    // Obtener el input del datepicker por su id
-    const datepickerInput = document.getElementById("datepickerId");
-
-    // Agregar un event listener para el evento de cambio de input
-    datepickerInput.addEventListener("input", handleDateChange);
-
-    // Limpiar el event listener cuando se desmonta el componente
-    return () => {
-      datepickerInput.removeEventListener("input", handleDateChange);
-    };
   }, []);
 
+  const handleChangeTime = (e) => {
+    setTime(e.target.value);
+  };
+
   const options = {
-    title: "Demo Title",
+    title: "Selecciona la fecha",
     autoHide: true,
     todayBtn: false,
-    clearBtn: true,
+    clearBtn: false,
     clearBtnText: "Clear",
     maxDate: new Date("2030-01-01"),
     minDate: new Date("1950-01-01"),
     theme: {
-      background: "bg-gray-700 dark:bg-gray-800",
+      background: "bg-gray-700",
       todayBtn: "",
       clearBtn: "",
       icons: "",
-      text: "",
-      disabledText: "bg-red-500",
-      input: "bg-transparent text-white border border-none pt-2.5",
+      text: "text-white hover:text-black",
+      disabledText: "bg-grey",
+      input: "bg-transparent text-white border border-none pt-2.5 text-xl lg:text-sm lg:w-[120px]",
       inputIcon: "",
       selected: "",
     },
     icons: {
       // () => ReactElement | JSX.Element
-      prev: () => <span>Previous</span>,
-      next: () => <span>Next</span>,
+      prev: () => <LeftArrowIcon/>,
+      next: () => <RigthArrowIcon/>,
     },
     datepickerClassNames: "top-12",
-    defaultDate: date,
+    defaultDate: new Date(formatDateToDDMMYYYY(date)),
     language: "es",
     disabledDates: [],
     weekDays: ["L", "M", "X", "J", "V", "S", "D"],
@@ -113,9 +101,18 @@ const EditOrder = ({
     },
   };
 
+  function formatDateToDDMMYYYY(dateString) {
+    const dateParts = dateString.split("/");
+    const day = dateParts[0];
+    const month = dateParts[1];
+    const year = dateParts[2];
+    return `${year}-${month}-${day}`;
+  }
+
   const handleChange = (selectedDate) => {
-    setSelectedDate(selectedDate);
-    console.log(selectedDate);
+    const fechaFormateada = formatDate(selectedDate);
+    const [fecha, hora] = fechaFormateada.split(" ");
+    setDate(fecha);
   };
   const handleClose = (state) => {
     setShow(state);
@@ -172,15 +169,16 @@ const EditOrder = ({
     event.preventDefault();
 
     const id = editUserData.id;
-    const date = event.target.appointment.value;
+    const cita = `${date} ${time}`;
     const work = event.target.work.value;
     const hours = event.target.hours.value;
     const finish = event.target.finish.value;
     const shipId = event.target.shipId.value;
     const userId = event.target.userId.value;
     const observations = event.target.observations.value;
+    console.log(date);
 
-    const appointment = toISO8601(date);
+    const appointment = toISO8601(cita);
     console.log(appointment);
     setEditUserData({
       id,
@@ -249,65 +247,45 @@ const EditOrder = ({
               id="userId"
               defaultValue={editUserData.userId}
               style={{ backgroundColor: "#21212d" }}
-              className={`border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-10 p-2.5 ${
+              className={`border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 ${
                 user.role === "mechanic" ? "hidden" : ""
               }`}
               readOnly={user.role === "mechanic"}
             />
           </div>
 
-          <div
-            className={`${
-              user.role === "mechanic"
-                ? "col-start-1 row-start-4 col-span-2 mb-5"
-                : "col-start-1 row-start-5"
-            }`}
-          >
-            <label
-              htmlFor="appointment"
-              className="block mb-2 text-sm font-medium text-white"
-            >
-              Fecha
+          <div className="pt-5 lg:pt-0">
+            <label className="block mb-2 text-xl lg:text-sm font-medium text-white">
+              Cita
             </label>
-            <input
-              type="text"
-              datepicker
-              id="datepickerId"
-              value={date}
-              style={{ backgroundColor: "#21212d" }}
-              className="border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[94px] p-2.5 "
-              defaultValue={formattedDate}
-            />
-          </div>
+            <div className="grid gap-0 grid-cols-2 bg-[#21212d] rounded-lg border border-[#58aaae] ">
+              <div className="col-start-2 row-start-4 justify-self-end">
+                <input
+                  type="time"
+                  id="time"
+                  style={{backgroundImage: 'linear-gradient(to left, #32323f, transparent)'}}
+                  className="bg-transparent rounded-lg border-none leading-none text-white text-xl lg:text-sm p-2.5"
+                  min="09:00"
+                  max="18:00"
+                  defaultValue={time}
+                  onChange={handleChangeTime}
+                  required
+                />
+              </div>
 
-          <div className="grid gap-0 grid-cols-2 bg-[#21212d] rounded-lg border border-[#58aaae] ">
-            <div className="col-start-2 row-start-4 justify-self-end">
-              <input
-                type="time"
-                id="time"
-                className="bg-transparent border-none leading-none text-white text-sm p-2.5"
-                min="09:00"
-                max="18:00"
-                defaultValue={time}
-                required
-              />
-            </div>
-
-            <div className="col-start-1 row-start-4">
-              <label
-                htmlFor="time"
-                className="block text-sm font-medium text-white"
-              ></label>
-              <Datepicker
-                options={options}
-                onChange={handleChange}
-                show={show}
-                setShow={handleClose}
-                classNames="w-[120px]"
-              />
+              <div className="col-start-1 row-start-4">
+                
+                {date && date.length && (
+                  <Datepicker
+                    options={options}
+                    onChange={handleChange}
+                    show={show}
+                    setShow={handleClose}
+                  />
+                )}
+              </div>
             </div>
           </div>
-
           <div className="mb-0 col-start-1 row-start-2 col-span-2">
             <label
               htmlFor="work"
@@ -341,7 +319,7 @@ const EditOrder = ({
           >
             <label
               htmlFor="observations"
-              className="block mb-2 text-sm font-medium text-white"
+              className="block mb-2 text-xl lg:text-sm font-medium text-white"
             >
               Observaciones
             </label>
@@ -354,7 +332,7 @@ const EditOrder = ({
                 textAlign: "left",
               }}
               defaultValue={editUserData.observations}
-              className="border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="border border-[#58aaae] text-white text-ml lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Observaciones"
             />
           </div>
@@ -363,21 +341,21 @@ const EditOrder = ({
             className={`${
               user.role === "mechanic"
                 ? "col-start-1 row-start-4 col-span-2"
-                : "col-start-1 row-start-1 w-10 justify-self-center"
+                : "col-start-2 row-start-4"
             }`}
           >
             <label
               htmlFor="hours"
-              className="block mb-2 text-sm font-medium text-white"
+              className="block mb-2 text-xl lg:text-sm font-medium text-white"
             >
-              Horas
+              Horas trabajadas
             </label>
             <input
               type="text"
               id="hours"
               defaultValue={editUserData.hours}
               style={{ backgroundColor: "#21212d" }}
-              className="border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              className="border border-[#58aaae] text-white text-ml lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="hours"
               required
             />

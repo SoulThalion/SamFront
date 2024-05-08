@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 import { getShipById } from "../../services/ship.service";
 import { getUserById } from "../../services/users.service";
 import XIcon from "../../icons/XIcon";
+import { useContext } from "react";
+import { UserContext } from "../../context/userContext";
 
 const ViewOrder = ({ view, setView, document }) => {
   const [client, setClient] = useState({});
   const [ship, setShip] = useState({});
   const [mechanic, setMechanic] = useState({});
   const [formattedDate, setFormattedDate] = useState("");
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchClient = async () => {
@@ -139,13 +142,13 @@ const ViewOrder = ({ view, setView, document }) => {
               <h1 className=" text-white text-lg font-bold mb-2 lg:mb-0">Observaciones:</h1>
               <p className=" text-white">{document.observations}</p>
             </div>
-            {mechanic ? (
+            {user.role === "mechanic" ? (
               <>
                 <p className="col-start-1 row-start-2 text-white">
                   <p className="font-bold">Mecánico asignado:</p>{" "}
-                  {mechanic.name} {mechanic.surName}
+                  {user.name} {user.surName}
                 </p>
-                <p className="col-start-2 row-start-2 text-white">
+                <p className="col-start-2 row-start-2 text-white col-span-2">
                   <p className="font-bold">Cita:</p> {formattedDate}{" "}
                   <p>
                     <span className="font-bold">Horas: </span>
@@ -154,14 +157,19 @@ const ViewOrder = ({ view, setView, document }) => {
                 </p>
               </>
             ) : (
-              <>
-                <p className="lg:col-start-1 lg:row-start-2 text-white mb-2 lg:mb-0">
+              <><p className="col-start-1 row-start-2 text-white">
+                  <p className="font-bold">Mecánico asignado:</p>{" "}
+                  {mechanic.name} {mechanic.surName}
+                </p>
+                <p className="lg:col-start-2 lg:row-start-2 text-white mb-2 lg:mb-0">
                   <p className="font-bold">Cita:</p> {formattedDate}
                 </p>
 
-                <p className="lg:col-start-2 lg:row-start-2 text-white mt-2 lg:mt-0">
+                <p className="lg:col-start-2 lg:row-start-3 text-white mt-2 lg:mt-0">
                   <p className="font-bold">Horas:</p> {document.hours}
                 </p>
+
+                
               </>
             )}
           </div>
