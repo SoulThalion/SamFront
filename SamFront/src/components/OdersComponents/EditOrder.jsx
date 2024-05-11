@@ -121,7 +121,7 @@ const EditOrder = ({
   const formatDate = (dateString) => {
     // Verificar si la cadena de fecha está vacía
     if (!dateString) {
-      return null; // o puedes devolver una cadena vacía: return "";
+      return null;
     }
 
     // Continuar formateando la fecha si la cadena no está vacía
@@ -145,7 +145,7 @@ const EditOrder = ({
     // Dividir la cadena en partes (día, mes, año, hora, minutos, segundos)
     const parts = dateString.split(/[\s/:\-]/);
 
-    // Crear un nuevo objeto Date con el formato adecuado (mes - 1 porque los meses van de 0 a 11 en JavaScript)
+    // Crear un nuevo objeto Date con el formato adecuado
     const date = new Date(
       parts[2],
       parts[1] - 1,
