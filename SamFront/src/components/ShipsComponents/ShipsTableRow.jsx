@@ -1,20 +1,16 @@
 import PropTypes from "prop-types";
-import EditIcon from "../../icons/EditIcon";
 import DeleteIcon from "../../icons/DeleteIcon";
 import { deleteShip } from "../../services/ship.service";
 import { updateShip } from "../../services/ship.service";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import SaveIcon from "../../icons/SaveIcon";
-//import { useContext } from 'react';
-//import {EditUserContext} from '../context/userContext'
 
 const ShipsTableRow = ({
   id,
   brand,
   model,
   registration_number,
-  setEditUserData,
   deleteButton,
   setDeleteButton,
 }) => {
@@ -22,7 +18,6 @@ const ShipsTableRow = ({
   const [newModel, setModel] = useState(model);
   const [newRegistration_number, setRegistrationNumber] =
     useState(registration_number);
-  //const { editUser, setEditUser } = useContext(EditUserContext);
   
   const handleEdit = async (event) => {
     event.preventDefault();
@@ -108,7 +103,7 @@ const ShipsTableRow = ({
         const handleConfirm = () => {
           resolve(true);
           toast.dismiss(); // Cierra el toast al confirmar
-          toast.success('Usuario eliminado')
+          toast.success('Barco eliminado')
         };
         // Resuelve la promesa con false cuando se pulsa Cancelar
         const handleCancel = () => {
@@ -121,7 +116,7 @@ const ShipsTableRow = ({
           (t) => (
             <div className="text-center">
               <p className="text-lg">
-                ¿Estás seguro de que deseas eliminar este usuario?
+                ¿Estás seguro de que deseas eliminar este barco?
               </p>
               <div className="mt-4 flex justify-center">
                 <button
@@ -155,12 +150,12 @@ const ShipsTableRow = ({
 
           setDeleteButton(!deleteButton);
 
-          // Realizar cualquier otra acción necesaria después de eliminar el usuario
-          console.log("Usuario eliminado:", update);
+          // Realizar cualquier otra acción necesaria después de eliminar el barco
+          console.log("Barco eliminado:", update);
 
-          // Limpiar el formulario u otras acciones después de eliminar el usuario
+          // Limpiar el formulario u otras acciones después de eliminar el barco
         } catch (error) {
-          console.error("Error al eliminar el usuario:", error);
+          console.error("Error al eliminar el barco:", error);
           // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         }
       } else {
@@ -228,12 +223,6 @@ ShipsTableRow.propTypes = {
   registration_number: PropTypes.string,
   brand: PropTypes.string,
   model: PropTypes.string,
-  telephone: PropTypes.string,
-  email: PropTypes.string,
-  cif: PropTypes.string,
-  setEditUserData: PropTypes.func,
-  setEditButton: PropTypes.func,
-  editButton: PropTypes.bool,
   setDeleteButton: PropTypes.func,
   deleteButton: PropTypes.bool,
 };

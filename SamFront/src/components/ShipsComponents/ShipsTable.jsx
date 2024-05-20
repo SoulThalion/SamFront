@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const ShipsTable = ({
   ships,
-  setEditUserData,
+  setEditShipData,
   editButton,
   setEditButton,
   deleteButton,
@@ -32,7 +32,7 @@ const ShipsTable = ({
         <tbody>
           <ShipsTableList
             ships={ships}
-            setEditUserData={setEditUserData}
+            setEditShipData={setEditShipData}
             setEditButton={setEditButton}
             editButton={editButton}
             deleteButton={deleteButton}
@@ -48,9 +48,9 @@ ShipsTable.propTypes = {
   ships: PropTypes.array,
   setNewButton: PropTypes.func,
   newButton: PropTypes.bool,
-  setEditUserData: PropTypes.func,
-  editUser: PropTypes.bool,
-  setEditUser: PropTypes.func,
+  setEditShipData: PropTypes.func,
+  editShip: PropTypes.bool,
+  setEditShip: PropTypes.func,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
   setDeleteButton: PropTypes.func,

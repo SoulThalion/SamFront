@@ -4,7 +4,7 @@ import PlusIcon from "../../icons/PlusIcon";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-const NewShip = ({ setNewButton, newButton, editUserData }) => {
+const NewShip = ({ setNewButton, newButton, editClientData }) => {
   const [model, setModel] = useState("");
   const [brand, setBrand] = useState("");
   const [reg, setReg] = useState("");
@@ -13,14 +13,14 @@ const NewShip = ({ setNewButton, newButton, editUserData }) => {
     event.preventDefault();
     if (model != "" && brand != "" && reg != "") {
       try {
-        const newShip = await createShip(model, brand, reg, editUserData.id);
+        const newShip = await createShip(model, brand, reg, editClientData.id);
         console.log("Barco añadido:", newShip);
         setNewButton(!newButton);
         toast.success('Barco añadido')
-        // Limpiar el formulario o realizar otras acciones después de crear el usuario
+        // Limpiar el formulario o realizar otras acciones después de crear el barco
       } catch (error) {
-        console.error("Error al crear el usuario:", error);
-        // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        console.error("Error al crear el barco:", error);
+        // Manejar el error, por ejemplo, mostrar un mensaje de error al barco
       }
     }else{
       toast.error("Falta algún dato de el nuevo barco")
@@ -110,7 +110,7 @@ NewShip.propTypes = {
   users: PropTypes.array,
   setNewButton: PropTypes.func,
   newButton: PropTypes.bool,
-  editUserData: PropTypes.number,
+  editClientData: PropTypes.number,
 };
 
 export default NewShip;

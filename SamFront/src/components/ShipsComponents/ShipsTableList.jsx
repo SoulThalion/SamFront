@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 
 const ShipsTableList = ({
   ships,
-  setEditUserData,
+  setEditShipData,
   setEditButton,
   editButton,
   deleteButton,
   setDeleteButton,
 }) => {
-  const formattedUsers = ships.map((ships) => (
+  const formattedShips = ships.map((ships) => (
     <tr
       key={ships.id}
       className="bg-[#21212d] text-white hover:bg-[#323337] border-b border-t border-[#58aaae]"
@@ -20,7 +20,7 @@ const ShipsTableList = ({
         model={ships.model}
         registration_number={ships.registration_number}
 
-        setEditUserData={setEditUserData}
+        setEditShipData={setEditShipData}
         setEditButton={setEditButton}
         editButton={editButton}
         deleteButton={deleteButton}
@@ -29,12 +29,12 @@ const ShipsTableList = ({
     </tr>
   ));
 
-  return <>{formattedUsers}</>;
+  return <>{formattedShips}</>;
 };
 
 ShipsTableList.propTypes = {
   ships: PropTypes.array,
-  setEditUserData: PropTypes.func,
+  setEditShipData: PropTypes.func,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
   setDeleteButton: PropTypes.func,
