@@ -26,10 +26,10 @@ const NewClient = ({ setNewButton, newButton }) => {
       toast.success('Cliente creado')
       setNewButton(!newButton);
 
-      // Limpiar el formulario o realizar otras acciones después de crear el usuario
+      // Limpiar el formulario o realizar otras acciones después de crear el cliente
     } catch (error) {
-      console.error("Error al crear el usuario:", error);
-      // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+      console.error("Error al crear el cliente:", error);
+      // Manejar el error, por ejemplo, mostrar un mensaje de error al cliente
     }
   };
 

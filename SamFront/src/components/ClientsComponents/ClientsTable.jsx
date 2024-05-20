@@ -3,10 +3,10 @@ import ClientsTableList from "./ClientsTableList";
 import PropTypes from "prop-types";
 
 const ClientsTable = ({
-  filteredUsers,
+  filteredClients,
   setNewButton,
   newButton,
-  setEditUserData,
+  setEditClientData,
   editButton,
   setEditButton,
   deleteButton,
@@ -52,8 +52,8 @@ const ClientsTable = ({
         </thead>
         <tbody>
           <ClientsTableList
-            filteredUsers={filteredUsers}
-            setEditUserData={setEditUserData}
+            filteredClients={filteredClients}
+            setEditClientData={setEditClientData}
             setEditButton={setEditButton}
             editButton={editButton}
             deleteButton={deleteButton}
@@ -66,12 +66,12 @@ const ClientsTable = ({
 };
 
 ClientsTable.propTypes = {
-  filteredUsers: PropTypes.array,
+  filteredClients: PropTypes.array,
   setNewButton: PropTypes.func,
   newButton: PropTypes.bool,
-  setEditUserData: PropTypes.func,
-  editUser: PropTypes.bool,
-  setEditUser: PropTypes.func,
+  setEditClientData: PropTypes.func,
+  editClient: PropTypes.bool,
+  setEditClient: PropTypes.func,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
   setDeleteButton: PropTypes.func,

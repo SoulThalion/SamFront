@@ -10,7 +10,7 @@ const Clients = () => {
   const [newButton, setNewButton] = useState(false);
   const [editButton, setEditButton] = useState(false);
   const [deleteButton, setDeleteButton] = useState(false);
-  const [editUserData, setEditUserData] = useState([]);
+  const [editClientData, setEditClientData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const Clients = () => {
     fetchAllClients();
   }, [newButton, editButton, deleteButton]);
 
-  const filteredUsers = clients.filter((client) => {
+  const filteredClients = clients.filter((client) => {
     return Object.values(client).some((value) => {
       if (typeof value === "string" || typeof value === "number") {
         return value
@@ -38,7 +38,7 @@ const Clients = () => {
   return (
     <div className="text-white bg-[#1c1d20] relative">
       <div className="flex justify-center items-center h-screen text-white">
-        {/* NewUser */}
+        {/* NewClient */}
         {newButton && (
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center">
             <NewClient setNewButton={setNewButton} newButton={newButton} />
@@ -48,11 +48,11 @@ const Clients = () => {
           </div>
         )}
 
-        {/* EditUser */}
+        {/* EditClient */}
         {editButton && (
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center">
             <EditClient
-              editUserData={editUserData}
+              editClientData={editClientData}
               setEditButton={setEditButton}
               editButton={editButton}
             />
@@ -62,7 +62,7 @@ const Clients = () => {
           </div>
         )}
 
-        {/* UsersTable */}
+        {/* ClientsTable */}
         <div
           className={`${
             newButton || editButton ? "opacity-50 pointer-events-none" : ""
@@ -77,10 +77,10 @@ const Clients = () => {
             </div>
             <div className="col-span-2">
               <ClientsTable
-                filteredUsers={filteredUsers}
+                filteredClients={filteredClients}
                 setNewButton={setNewButton}
                 newButton={newButton}
-                setEditUserData={setEditUserData}
+                setEditClientData={setEditClientData}
                 setEditButton={setEditButton}
                 editButton={editButton}
                 deleteButton={deleteButton}

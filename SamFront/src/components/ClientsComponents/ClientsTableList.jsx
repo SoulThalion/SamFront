@@ -2,27 +2,27 @@ import ClientsTableRow from "./ClientsTableRow";
 import PropTypes from "prop-types";
 
 const ClientsTableList = ({
-  filteredUsers,
-  setEditUserData,
+  filteredClients,
+  setEditClientData,
   setEditButton,
   editButton,
   deleteButton,
   setDeleteButton,
 }) => {
-  const formattedUsers = filteredUsers.map((filteredUsers) => (
+  const formattedClients = filteredClients.map((filteredClients) => (
     <tr
-      key={filteredUsers.id}
+      key={filteredClients.id}
       className="bg-[#21212d] text-white hover:bg-[#323337] border-b border-t border-[#58aaae]"
     >
       <ClientsTableRow
-        id={filteredUsers.id}
-        address={filteredUsers.address}
-        name={filteredUsers.name}
-        surName={filteredUsers.surName}
-        telephone={filteredUsers.telephone}
-        email={filteredUsers.email}
-        cif={filteredUsers.cif}
-        setEditUserData={setEditUserData}
+        id={filteredClients.id}
+        address={filteredClients.address}
+        name={filteredClients.name}
+        surName={filteredClients.surName}
+        telephone={filteredClients.telephone}
+        email={filteredClients.email}
+        cif={filteredClients.cif}
+        setEditClientData={setEditClientData}
         setEditButton={setEditButton}
         editButton={editButton}
         deleteButton={deleteButton}
@@ -31,12 +31,12 @@ const ClientsTableList = ({
     </tr>
   ));
 
-  return <>{formattedUsers}</>;
+  return <>{formattedClients}</>;
 };
 
 ClientsTableList.propTypes = {
-  filteredUsers: PropTypes.array,
-  setEditUserData: PropTypes.func,
+  filteredClients: PropTypes.array,
+  setEditClientData: PropTypes.func,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
   setDeleteButton: PropTypes.func,

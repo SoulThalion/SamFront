@@ -5,21 +5,16 @@ import { useEffect, useState } from "react";
 import ShipsTable from "../ShipsComponents/ShipsTable";
 import NewShip from "../ShipsComponents/NewShip";
 import toast from "react-hot-toast";
-//import { useContext } from "react";
-//import {EditUserContext} from '../context/userContext'
 
-const EditUser = ({ editUserData, editButton, setEditButton }) => {
-  //const { editUser, setEditUser } = useContext(EditUserContext);
+const EditClient = ({ editClientData, editButton, setEditButton }) => {
 
   const [ships, setShips] = useState([]);
   const [newButton, setNewButton] = useState(false);
   const [deleteButton, setDeleteButton] = useState(false);
-  
-  //const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     const fetchAllShips = async () => {
-      const data = await getShipsByClientId(editUserData.id);
+      const data = await getShipsByClientId(editClientData.id);
       setShips(data);
     };
 
@@ -28,7 +23,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const id = editUserData.id;
+    const id = editClientData.id;
     const address = event.target.address.value;
     const name = event.target.name.value;
     const surName = event.target.surName.value;
@@ -67,7 +62,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
       >
         <div className="grid grid-cols-2 grid-rows-[5px] gap-0 lg:mt-3 pl-5">
             <div className="col-start-3 row-start-1">
-              <p>{editUserData.id}</p>
+              <p>{editClientData.id}</p>
             </div>
           <div className="col-start-1 row-start-2 mr-5">
           <div className="mb-4">
@@ -80,7 +75,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
             <input
               type="text"
               id="address"
-              defaultValue={editUserData.address}
+              defaultValue={editClientData.address}
               style={{ backgroundColor: "#21212d" }}
               className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="dirección"
@@ -100,7 +95,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
             <input
               type="text"
               id="name"
-              defaultValue={editUserData.name}
+              defaultValue={editClientData.name}
               style={{ backgroundColor: "#21212d" }}
               className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="nombre"
@@ -118,7 +113,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
             <input
               type="text"
               id="surName"
-              defaultValue={editUserData.surName}
+              defaultValue={editClientData.surName}
               style={{ backgroundColor: "#21212d" }}
               className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="apellidos"
@@ -138,7 +133,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
             <input
               type="text"
               id="email"
-              defaultValue={editUserData.email}
+              defaultValue={editClientData.email}
               style={{ backgroundColor: "#21212d" }}
               className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="email"
@@ -156,7 +151,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
             <input
               type="text"
               id="telephone"
-              defaultValue={editUserData.telephone}
+              defaultValue={editClientData.telephone}
               style={{ backgroundColor: "#21212d" }}
               className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="teléfono"
@@ -174,7 +169,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
             <input
               type="text"
               id="cif"
-              defaultValue={editUserData.cif}
+              defaultValue={editClientData.cif}
               style={{ backgroundColor: "#21212d" }}
               className="border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="cif"
@@ -189,7 +184,7 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
 
           
         </div>
-        <NewShip editUserData={editUserData} setNewButton={setNewButton} newButton={newButton}/>
+        <NewShip editClientData={editClientData} setNewButton={setNewButton} newButton={newButton}/>
         <ShipsTable
           ships={ships}
           deleteButton={deleteButton}
@@ -220,11 +215,11 @@ const EditUser = ({ editUserData, editButton, setEditButton }) => {
   );
 };
 
-EditUser.propTypes = {
+EditClient.propTypes = {
   users: PropTypes.array,
-  editUserData: PropTypes.array,
+  editClientData: PropTypes.array,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
 };
 
-export default EditUser;
+export default EditClient;

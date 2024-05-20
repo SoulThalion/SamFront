@@ -3,10 +3,8 @@ import EditIcon from "../../icons/EditIcon";
 import DeleteIcon from "../../icons/DeleteIcon";
 import { deleteClient } from "../../services/clients.service";
 import toast from "react-hot-toast";
-//import { useContext } from 'react';
-//import {EditUserContext} from '../context/userContext'
 
-const UsersTableRow = ({
+const ClientsTableRow = ({
   id,
   name,
   surName,
@@ -14,13 +12,12 @@ const UsersTableRow = ({
   telephone,
   email,
   cif,
-  setEditUserData,
+  setEditClientData,
   setEditButton,
   editButton,
   deleteButton,
   setDeleteButton,
 }) => {
-  //const { editUser, setEditUser } = useContext(EditUserContext);
 
   const handleDelete = async (event) => {
     event.preventDefault();
@@ -114,7 +111,7 @@ const UsersTableRow = ({
         <button
           className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
           onClick={() => {
-            setEditUserData({
+            setEditClientData({
               id: id,
               address: address,
               name: name,
@@ -142,7 +139,7 @@ const UsersTableRow = ({
   );
 };
 
-UsersTableRow.propTypes = {
+ClientsTableRow.propTypes = {
   id: PropTypes.number,
   address: PropTypes.string,
   name: PropTypes.string,
@@ -150,11 +147,11 @@ UsersTableRow.propTypes = {
   telephone: PropTypes.string,
   email: PropTypes.string,
   cif: PropTypes.string,
-  setEditUserData: PropTypes.func,
+  setEditClientData: PropTypes.func,
   setEditButton: PropTypes.func,
   editButton: PropTypes.bool,
   setDeleteButton: PropTypes.func,
   deleteButton: PropTypes.bool,
 };
 
-export default UsersTableRow;
+export default ClientsTableRow;
