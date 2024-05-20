@@ -3,8 +3,6 @@ import EditIcon from "../../icons/EditIcon";
 import DeleteIcon from "../../icons/DeleteIcon";
 import { deleteUser } from "../../services/users.service";
 import toast from "react-hot-toast";
-//import { useContext } from 'react';
-//import {EditUserContext} from '../context/userContext'
 
 const UsersTableRow = ({
   id,
@@ -20,7 +18,6 @@ const UsersTableRow = ({
   deleteButton,
   setDeleteButton,
 }) => {
-  //const { editUser, setEditUser } = useContext(EditUserContext);
 
   const handleDelete = async (event) => {
     event.preventDefault();

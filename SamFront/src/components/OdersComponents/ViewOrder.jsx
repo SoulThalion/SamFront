@@ -159,7 +159,7 @@ const ViewOrder = ({ view, setView, document }) => {
             ) : (
               <><p className="col-start-1 row-start-2 text-white">
                   <p className="font-bold">Mecánico asignado:</p>{" "}
-                  {mechanic.name} {mechanic.surName}
+                  {mechanic!== null?  (`${mechanic.name} ${mechanic.surName}`) : " "}
                 </p>
                 <p className="lg:col-start-2 lg:row-start-2 text-white mb-2 lg:mb-0">
                   <p className="font-bold">Cita:</p> {formattedDate}

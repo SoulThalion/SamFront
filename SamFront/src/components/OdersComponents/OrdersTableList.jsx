@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
-import UsersTableRow from "./UsersTableRow";
+import OrdersTableRow from "./OrdersTableRow";
 import PropTypes from "prop-types";
 
-const UsersTableList = ({
-  filteredUsers,
-  setEditUserData,
+const OrdersTableList = ({
+  filteredOrders,
+  setEditOrderData,
   setEditButton,
   editButton,
   deleteButton,
   setDeleteButton,
   view,
   setView,
-  document,
   setDocument,
 }) => {
   const [isMobileView, setIsMobileView] = useState(false);
@@ -28,33 +27,32 @@ const UsersTableList = ({
     };
   }, []);
 
-  const formattedUsers = filteredUsers.map((filteredUser) => (
+  const formattedOrders = filteredOrders.map((filteredOrder) => (
     <>
       {isMobileView ? (
         <table className="text-sm text-left rtl:text-right text-white w-screen">
           <tbody>
             <tr
-              key={filteredUser.id}
+              key={filteredOrder.id}
               className="bg-[#21212d] text-white hover:bg-[#323337]"
             >
-              <UsersTableRow
-                id={filteredUser.id}
-                appointment={filteredUser.appointment}
-                work={filteredUser.work}
-                hours={filteredUser.hours}
-                finish={filteredUser.finish}
-                userId={filteredUser.userId}
-                shipId={filteredUser.shipId}
-                clientId={filteredUser.clientId}
-                observations={filteredUser.observations}
-                setEditUserData={setEditUserData}
+              <OrdersTableRow
+                id={filteredOrder.id}
+                appointment={filteredOrder.appointment}
+                work={filteredOrder.work}
+                hours={filteredOrder.hours}
+                finish={filteredOrder.finish}
+                userId={filteredOrder.userId}
+                shipId={filteredOrder.shipId}
+                clientId={filteredOrder.clientId}
+                observations={filteredOrder.observations}
+                setEditOrderData={setEditOrderData}
                 setEditButton={setEditButton}
                 editButton={editButton}
                 deleteButton={deleteButton}
                 setDeleteButton={setDeleteButton}
                 view={view}
                 setView={setView}
-                document={document}
                 setDocument={setDocument}
               />
             </tr>
@@ -62,27 +60,26 @@ const UsersTableList = ({
         </table>
       ) : (
         <tr
-          key={filteredUser.id}
+          key={filteredOrder.id}
           className="bg-[#21212d] text-white hover:bg-[#323337] border-b border-t border-[#58aaae]"
         >
-          <UsersTableRow
-            id={filteredUser.id}
-            appointment={filteredUser.appointment}
-            work={filteredUser.work}
-            hours={filteredUser.hours}
-            finish={filteredUser.finish}
-            userId={filteredUser.userId}
-            shipId={filteredUser.shipId}
-            clientId={filteredUser.clientId}
-            observations={filteredUser.observations}
-            setEditUserData={setEditUserData}
+          <OrdersTableRow
+            id={filteredOrder.id}
+            appointment={filteredOrder.appointment}
+            work={filteredOrder.work}
+            hours={filteredOrder.hours}
+            finish={filteredOrder.finish}
+            userId={filteredOrder.userId}
+            shipId={filteredOrder.shipId}
+            clientId={filteredOrder.clientId}
+            observations={filteredOrder.observations}
+            setEditOrderData={setEditOrderData}
             setEditButton={setEditButton}
             editButton={editButton}
             deleteButton={deleteButton}
             setDeleteButton={setDeleteButton}
             view={view}
             setView={setView}
-            document={document}
             setDocument={setDocument}
           />
         </tr>
@@ -90,16 +87,19 @@ const UsersTableList = ({
     </>
   ));
 
-  return <>{formattedUsers}</>;
+  return <>{formattedOrders}</>;
 };
 
-UsersTableList.propTypes = {
-  filteredUsers: PropTypes.array,
-  setEditUserData: PropTypes.func,
+OrdersTableList.propTypes = {
+  filteredOrders: PropTypes.array,
+  setEditOrderData: PropTypes.func,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
   setDeleteButton: PropTypes.func,
   deleteButton: PropTypes.bool,
+  view: PropTypes.bool,
+  setView: PropTypes.func,
+  setDocument: PropTypes.func
 };
 
-export default UsersTableList;
+export default OrdersTableList;

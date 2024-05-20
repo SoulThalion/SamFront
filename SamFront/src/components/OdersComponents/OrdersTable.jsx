@@ -1,22 +1,21 @@
 import PlusIcon from "../../icons/PlusIcon";
-import UsersTableList from "./UsersTableList";
+import OrdersTableList from "./OrdersTableList";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 
-const UsersTable = ({
-  filteredUsers,
+const OrdersTable = ({
+  filteredOrders,
   setNewButton,
   newButton,
-  setEditUserData,
+  setEditOrderData,
   editButton,
   setEditButton,
   deleteButton,
   setDeleteButton,
   view,
   setView,
-  document,
   setDocument,
 }) => {
   const { user } = useContext(UserContext);
@@ -38,16 +37,15 @@ const UsersTable = ({
     <><div
     className="relative w-full overflow-x-auto shadow-md rounded-lg border-2 border-[#58aaae]"
   >
-      <UsersTableList
-        filteredUsers={filteredUsers}
-        setEditUserData={setEditUserData}
+      <OrdersTableList
+        filteredOrders={filteredOrders}
+        setEditOrderData={setEditOrderData}
         setEditButton={setEditButton}
         editButton={editButton}
         deleteButton={deleteButton}
         setDeleteButton={setDeleteButton}
         view={view}
         setView={setView}
-        document={document}
         setDocument={setDocument}
       />
       </div>
@@ -130,16 +128,15 @@ const UsersTable = ({
           </tr>
         </thead>
         <tbody>
-          <UsersTableList
-            filteredUsers={filteredUsers}
-            setEditUserData={setEditUserData}
+          <OrdersTableList
+            filteredOrders={filteredOrders}
+            setEditOrderData={setEditOrderData}
             setEditButton={setEditButton}
             editButton={editButton}
             deleteButton={deleteButton}
             setDeleteButton={setDeleteButton}
             view={view}
             setView={setView}
-            document={document}
             setDocument={setDocument}
           />
         </tbody>
@@ -148,17 +145,18 @@ const UsersTable = ({
   );
 };
 
-UsersTable.propTypes = {
-  filteredUsers: PropTypes.array,
+OrdersTable.propTypes = {
+  filteredOrders: PropTypes.array,
   setNewButton: PropTypes.func,
   newButton: PropTypes.bool,
-  setEditUserData: PropTypes.func,
-  editUser: PropTypes.bool,
-  setEditUser: PropTypes.func,
+  setEditOrderData: PropTypes.func,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
   setDeleteButton: PropTypes.func,
   deleteButton: PropTypes.bool,
+  view: PropTypes.bool,
+  setView: PropTypes.func,
+  setDocument: PropTypes.func
 };
 
-export default UsersTable;
+export default OrdersTable;

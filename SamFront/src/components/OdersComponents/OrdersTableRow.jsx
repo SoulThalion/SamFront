@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import toast from "react-hot-toast";
 
-const UsersTableRow = ({
+const OrdersTableRow = ({
   id,
   appointment,
   work,
@@ -19,17 +19,15 @@ const UsersTableRow = ({
   shipId,
   observations,
   clientId,
-  setEditUserData,
+  setEditOrderData,
   setEditButton,
   editButton,
   deleteButton,
   setDeleteButton,
   view,
   setView,
-  document,
   setDocument,
 }) => {
-  //const { editUser, setEditUser } = useContext(EditUserContext);
 
   const { user } = useContext(UserContext);
   const [formattedDate, setFormattedDate] = useState("");
@@ -101,7 +99,7 @@ const UsersTableRow = ({
         const handleConfirm = () => {
           resolve(true);
           toast.dismiss(); // Cierra el toast al confirmar
-          toast.success("Usuario eliminado");
+          toast.success("Orden eliminada");
         };
         // Resuelve la promesa con false cuando se pulsa Cancelar
         const handleCancel = () => {
@@ -114,7 +112,7 @@ const UsersTableRow = ({
           (t) => (
             <div className="text-center">
               <p className="text-lg">
-                ¿Estás seguro de que deseas eliminar este usuario?
+                ¿Estás seguro de que deseas eliminar esta orden?
               </p>
               <div className="mt-4 flex justify-center">
                 <button
@@ -148,12 +146,12 @@ const UsersTableRow = ({
 
           setDeleteButton(!deleteButton);
 
-          // Realizar cualquier otra acción necesaria después de eliminar el usuario
-          console.log("Usuario eliminado:", update);
+          // Realizar cualquier otra acción necesaria después de eliminar la orden
+          console.log("Orden eliminada:", update);
 
-          // Limpiar el formulario u otras acciones después de eliminar el usuario
+          // Limpiar el formulario u otras acciones después de eliminar la orden
         } catch (error) {
-          console.error("Error al eliminar el usuario:", error);
+          console.error("Error al eliminar la orden:", error);
           // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         }
       } else {
@@ -188,7 +186,7 @@ const UsersTableRow = ({
               <button
                 className="px-4 py-4 mx-4 mb-2 bg-[#242529] rounded-lg border border-[#58aaae]"
                 onClick={() => {
-                  setEditUserData({
+                  setEditOrderData({
                     id: id,
                     appointment: appointment,
                     work: work,
@@ -243,7 +241,7 @@ const UsersTableRow = ({
                 <button
                   className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
                   onClick={() => {
-                    setEditUserData({
+                    setEditOrderData({
                       id: id,
                       appointment: appointment,
                       work: work,
@@ -290,7 +288,7 @@ const UsersTableRow = ({
                 <button
                   className="px-4 py-4 bg-[#242529] border-l border-[#58aaae]"
                   onClick={() => {
-                    setEditUserData({
+                    setEditOrderData({
                       id: id,
                       appointment: appointment,
                       work: work,
@@ -315,19 +313,24 @@ const UsersTableRow = ({
   );
 };
 
-UsersTableRow.propTypes = {
+OrdersTableRow.propTypes = {
   id: PropTypes.number,
   finish: PropTypes.bool,
-  name: PropTypes.string,
-  surName: PropTypes.string,
-  telephone: PropTypes.string,
-  email: PropTypes.string,
-  role: PropTypes.string,
-  setEditUserData: PropTypes.func,
+  appointment: PropTypes.string,
+  work: PropTypes.string,
+  hours: PropTypes.number,
+  userId: PropTypes.number,
+  shipId: PropTypes.number,
+  observations: PropTypes.string,
+  clientId: PropTypes.number,
+  view: PropTypes.bool,
+  setView: PropTypes.func,
+  setDocument: PropTypes.func,
+  setEditOrderData: PropTypes.func,
   setEditButton: PropTypes.func,
   editButton: PropTypes.bool,
   setDeleteButton: PropTypes.func,
   deleteButton: PropTypes.bool,
 };
 
-export default UsersTableRow;
+export default OrdersTableRow;

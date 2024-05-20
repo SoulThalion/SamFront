@@ -8,18 +8,14 @@ import toast from "react-hot-toast";
 import Datepicker from "tailwind-datepicker-react";
 import LeftArrowIcon from "../../icons/LeftArrowIcon";
 import RigthArrowIcon from "../../icons/RigthArrowIcon";
-//import Datepicker from "flowbite-datepicker/Datepicker";
-//import DatePicker from "react-multi-date-picker";
-//import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
 const EditOrder = ({
-  editUserData,
-  setEditUserData,
+  editOrderData,
+  setEditOrderData,
   editButton,
   setEditButton,
 }) => {
-  //const { editUser, setEditUser } = useContext(EditUserContext);
-  const [formattedDate, setFormattedDate] = useState("");
+  
   const [ships, setShips] = useState([]);
   const [ship, setShip] = useState({});
   const { user } = useContext(UserContext);
@@ -29,19 +25,19 @@ const EditOrder = ({
 
   useEffect(() => {
     const fetchAllShips = async () => {
-      const data = await getShipsByClientId(editUserData.clientId);
+      const data = await getShipsByClientId(editOrderData.clientId);
       setShips(data);
     };
 
     const fetchShip = async () => {
-      const data = await getShipById(editUserData.shipId);
+      const data = await getShipById(editOrderData.shipId);
       setShip(data);
     };
 
-    const fechaFormateada = editUserData.appointment
-      ? formatDate(editUserData.appointment)
+    const fechaFormateada = editOrderData.appointment
+      ? formatDate(editOrderData.appointment)
       : new Date();
-    setFormattedDate(fechaFormateada);
+    
     let fecha, hora;
     if (typeof fechaFormateada === "string") {
       [fecha, hora] = fechaFormateada.split(" ");
@@ -168,7 +164,7 @@ const EditOrder = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const id = editUserData.id;
+    const id = editOrderData.id;
     const cita = `${date} ${time}`;
     const work = event.target.work.value;
     const hours = event.target.hours.value;
@@ -176,11 +172,10 @@ const EditOrder = ({
     const shipId = event.target.shipId.value;
     const userId = event.target.userId.value;
     const observations = event.target.observations.value;
-    console.log(date);
 
     const appointment = toISO8601(cita);
     console.log(appointment);
-    setEditUserData({
+    setEditOrderData({
       id,
       appointment,
       work,
@@ -228,7 +223,7 @@ const EditOrder = ({
       >
         <div className="grid md:grid-cols-2 md:gap-6">
           <p className="col-start-2 row-start-1 text-white justify-self-end">
-            {editUserData.id}
+            {editOrderData.id}
           </p>
         </div>
 
@@ -245,7 +240,7 @@ const EditOrder = ({
             <input
               type="text"
               id="userId"
-              defaultValue={editUserData.userId}
+              defaultValue={editOrderData.userId}
               style={{ backgroundColor: "#21212d" }}
               className={`border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 ${
                 user.role === "mechanic" ? "hidden" : ""
@@ -303,7 +298,7 @@ const EditOrder = ({
                 resize: "none",
                 textAlign: "left",
               }}
-              defaultValue={editUserData.work}
+              defaultValue={editOrderData.work}
               className={`border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
                 user.role === "mechanic" ? "hidden" : ""
               }`}
@@ -331,7 +326,7 @@ const EditOrder = ({
                 resize: "none",
                 textAlign: "left",
               }}
-              defaultValue={editUserData.observations}
+              defaultValue={editOrderData.observations}
               className="border border-[#58aaae] text-white text-ml lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Observaciones"
             />
@@ -353,7 +348,7 @@ const EditOrder = ({
             <input
               type="text"
               id="hours"
-              defaultValue={editUserData.hours}
+              defaultValue={editOrderData.hours}
               style={{ backgroundColor: "#21212d" }}
               className="border border-[#58aaae] text-white text-ml lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="hours"
@@ -377,11 +372,11 @@ const EditOrder = ({
               }`}
               readOnly={user.role === "mechanic"}
             >
-              <option value={editUserData.finish ? "true" : "false"} selected>
-                {editUserData.finish ? "Finalizado" : "Pendiente"}
+              <option value={editOrderData.finish ? "true" : "false"} selected>
+                {editOrderData.finish ? "Finalizado" : "Pendiente"}
               </option>
-              <option value={editUserData.finish ? "false" : "true"}>
-                {editUserData.finish ? "Pendiente" : "Finalizado"}
+              <option value={editOrderData.finish ? "false" : "true"}>
+                {editOrderData.finish ? "Pendiente" : "Finalizado"}
               </option>
             </select>
           </div>
@@ -397,14 +392,14 @@ const EditOrder = ({
             </label>
             <select
               id="shipId"
-              defaultValue={editUserData.shipId}
+              defaultValue={editOrderData.shipId}
               className={`bg-[#21212d] border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
                 user.role === "mechanic" ? "hidden" : ""
               }`}
               required
               readOnly={user.role === "mechanic"}
             >
-              <option value={editUserData.shipId} selected>
+              <option value={editOrderData.shipId} selected>
                 {ship.id} {ship.brand} {ship.model} {ship.registration_number}
               </option>
               {formattedShips}
@@ -435,9 +430,10 @@ const EditOrder = ({
 
 EditOrder.propTypes = {
   users: PropTypes.array,
-  editUserData: PropTypes.array,
+  editOrderData: PropTypes.array,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
+  setEditOrderData: PropTypes.func
 };
 
 export default EditOrder;

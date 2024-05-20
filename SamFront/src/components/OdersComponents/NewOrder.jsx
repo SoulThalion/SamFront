@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { getShipsByClientId } from "../../services/ship.service";
 import toast from "react-hot-toast";
 
-const NewUser = ({ setNewButton, newButton }) => {
+const NewOrder = ({ setNewButton, newButton }) => {
   const [clientId, setClientId] = useState();
   const [ships, setShips] = useState([]);
-  console.log(ships);
+
   const handleOnChange = (event) => {
     const text = event.target.value;
     setClientId(text);
@@ -30,7 +30,7 @@ const NewUser = ({ setNewButton, newButton }) => {
     const clientId = event.target.clientId.value;
 
     try {
-      const newUser = await createOrder(work, shipId, clientId);
+      await createOrder(work, shipId, clientId);
       toast.success('Orden creada')
       setNewButton(!newButton);
 
@@ -132,10 +132,10 @@ const NewUser = ({ setNewButton, newButton }) => {
   );
 };
 
-NewUser.propTypes = {
+NewOrder.propTypes = {
   users: PropTypes.array,
   setNewButton: PropTypes.func,
   newButton: PropTypes.bool,
 };
 
-export default NewUser;
+export default NewOrder;

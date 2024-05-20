@@ -1,11 +1,8 @@
 import PropTypes from "prop-types";
 import { updateUser } from "../../services/users.service";
 import toast from "react-hot-toast";
-//import { useContext } from "react";
-//import {EditUserContext} from '../context/userContext'
 
 const EditUser = ({ editUserData, editButton, setEditButton }) => {
-  //const { editUser, setEditUser } = useContext(EditUserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

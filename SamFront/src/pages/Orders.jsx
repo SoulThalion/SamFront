@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllOrders } from "../services/orders.service";
-import UsersTable from "../components/OdersComponents/UsersTable.jsx";
-import NewUser from "../components/OdersComponents/NewUser.jsx";
+import OrdersTable from "../components/OdersComponents/OrdersTable.jsx";
+import NewOrder from "../components/OdersComponents/NewOrder.jsx";
 import EditOrder from "../components/OdersComponents/EditOrder.jsx";
 import SearchBar from "../components/OdersComponents/SearchBar.jsx";
 import ViewOrder from "../components/OdersComponents/ViewOrder.jsx";
@@ -9,11 +9,11 @@ import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 
 const Orders = () => {
-  const [users, setUsers] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [newButton, setNewButton] = useState(false);
   const [editButton, setEditButton] = useState(false);
   const [deleteButton, setDeleteButton] = useState(false);
-  const [editUserData, setEditUserData] = useState([]);
+  const [editOrderData, setEditOrderData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [view, setView] = useState(false);
   const [document, setDocument] = useState({})
@@ -21,12 +21,12 @@ const Orders = () => {
   const [isMobileView, setIsMobileView] = useState(false);
 
   useEffect(() => {
-    const fetchAllUsers = async () => {
+    const fetchAllOrders = async () => {
       const data = await getAllOrders();
-      setUsers(data);
+      setOrders(data);
     };
 
-    fetchAllUsers();
+    fetchAllOrders();
 
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 768); // Considerando una anchura de 768px para determinar vista de móvil
@@ -39,7 +39,7 @@ const Orders = () => {
     };
   }, [newButton, editButton, deleteButton]);
 
-  const filteredUsers = users.filter((user) => {
+  const filteredOrders = orders.filter((user) => {
     return Object.values(user).some((value) => {
       if (typeof value === "string" || typeof value === "number") {
         return value
@@ -54,22 +54,22 @@ const Orders = () => {
   return (
     <div className="text-white bg-[#1c1d20] relative">
       <div className="flex justify-center lg:items-center lg:pt-0 h-screen text-white pt-40">
-        {/* NewUser */}
+        {/* NewOrder */}
         {newButton && (
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center">
-            <NewUser setNewButton={setNewButton} newButton={newButton} />
+            <NewOrder setNewButton={setNewButton} newButton={newButton} />
             <h1 className="absolute top-20 right-5 text-4xl text-center mb-4 z-100">
               Nueva Orden
             </h1>
           </div>
         )}
 
-        {/* EditUser */}
+        {/* EditOrder */}
         {editButton && (
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center">
             <EditOrder
-              editUserData={editUserData}
-              setEditUserData={setEditUserData}
+              editOrderData={editOrderData}
+              setEditOrderData={setEditOrderData}
               setEditButton={setEditButton}
               editButton={editButton}
             />
@@ -79,7 +79,7 @@ const Orders = () => {
           </div>
         )}
 
-        {/* UsersTable */}
+        {/* OrdersTable */}
         <div
           className={`${
             newButton || editButton ? "opacity-50 pointer-events-none" : ""
@@ -95,11 +95,11 @@ const Orders = () => {
               />
             </div>}
             <div className="col-span-2">
-              <UsersTable
-                filteredUsers={filteredUsers}
+              <OrdersTable
+                filteredOrders={filteredOrders}
                 setNewButton={setNewButton}
                 newButton={newButton}
-                setEditUserData={setEditUserData}
+                setEditOrderData={setEditOrderData}
                 setEditButton={setEditButton}
                 editButton={editButton}
                 deleteButton={deleteButton}
