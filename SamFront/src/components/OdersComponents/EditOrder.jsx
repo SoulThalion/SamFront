@@ -15,7 +15,6 @@ const EditOrder = ({
   editButton,
   setEditButton,
 }) => {
-  
   const [ships, setShips] = useState([]);
   const [ship, setShip] = useState({});
   const { user } = useContext(UserContext);
@@ -37,7 +36,7 @@ const EditOrder = ({
     const fechaFormateada = editOrderData.appointment
       ? formatDate(editOrderData.appointment)
       : new Date();
-    
+
     let fecha, hora;
     if (typeof fechaFormateada === "string") {
       [fecha, hora] = fechaFormateada.split(" ");
@@ -72,14 +71,15 @@ const EditOrder = ({
       icons: "",
       text: "text-white hover:text-black",
       disabledText: "bg-grey",
-      input: "bg-transparent text-white border border-none pt-2.5 text-xl lg:text-sm lg:w-[120px]",
+      input:
+        "bg-transparent text-white border border-none pt-2.5 text-xl lg:text-sm lg:w-[120px]",
       inputIcon: "",
       selected: "",
     },
     icons: {
       // () => ReactElement | JSX.Element
-      prev: () => <LeftArrowIcon/>,
-      next: () => <RigthArrowIcon/>,
+      prev: () => <LeftArrowIcon />,
+      next: () => <RigthArrowIcon />,
     },
     datepickerClassNames: "top-12",
     defaultDate: new Date(formatDateToDDMMYYYY(date)),
@@ -169,12 +169,12 @@ const EditOrder = ({
     const work = event.target.work.value;
     const hours = event.target.hours.value;
     const finish = event.target.finish.value;
-    const shipId = event.target.shipId.value;
+    const shipId = event.target.shipId.value || editOrderData.shipId;
     const userId = event.target.userId.value;
     const observations = event.target.observations.value;
 
     const appointment = toISO8601(cita);
-    console.log(appointment);
+    
     setEditOrderData({
       id,
       appointment,
@@ -258,7 +258,10 @@ const EditOrder = ({
                 <input
                   type="time"
                   id="time"
-                  style={{backgroundImage: 'linear-gradient(to left, #32323f, transparent)'}}
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to left, #32323f, transparent)",
+                  }}
                   className="bg-transparent rounded-lg border-none leading-none text-white text-xl lg:text-sm p-2.5"
                   min="09:00"
                   max="18:00"
@@ -269,7 +272,6 @@ const EditOrder = ({
               </div>
 
               <div className="col-start-1 row-start-4">
-                
                 {date && date.length && (
                   <Datepicker
                     options={options}
@@ -367,17 +369,14 @@ const EditOrder = ({
             </label>
             <select
               id="finish"
+              defaultValue={editOrderData.finish ? "true" : "false"}
               className={`bg-[#21212d] border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
                 user.role === "mechanic" ? "hidden" : ""
               }`}
               readOnly={user.role === "mechanic"}
             >
-              <option value={editOrderData.finish ? "true" : "false"} selected>
-                {editOrderData.finish ? "Finalizado" : "Pendiente"}
-              </option>
-              <option value={editOrderData.finish ? "false" : "true"}>
-                {editOrderData.finish ? "Pendiente" : "Finalizado"}
-              </option>
+              <option value="true">Finalizado</option>
+              <option value="false">Pendiente</option>
             </select>
           </div>
 
@@ -396,10 +395,10 @@ const EditOrder = ({
               className={`bg-[#21212d] border border-[#58aaae] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
                 user.role === "mechanic" ? "hidden" : ""
               }`}
-              required
+
               readOnly={user.role === "mechanic"}
             >
-              <option value={editOrderData.shipId} selected>
+              <option value="">
                 {ship.id} {ship.brand} {ship.model} {ship.registration_number}
               </option>
               {formattedShips}
@@ -430,10 +429,10 @@ const EditOrder = ({
 
 EditOrder.propTypes = {
   users: PropTypes.array,
-  editOrderData: PropTypes.array,
+  editOrderData: PropTypes.object,
   editButton: PropTypes.bool,
   setEditButton: PropTypes.func,
-  setEditOrderData: PropTypes.func
+  setEditOrderData: PropTypes.func,
 };
 
 export default EditOrder;
